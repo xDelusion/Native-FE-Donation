@@ -1,13 +1,13 @@
 import instance from "../index";
 
-const signIn = async (userInfo) => {
-  const res = await instance.post("/users/auth/signin", userInfo);
+const Login = async (userInfo) => {
+  const res = await instance.post("/auth/login", userInfo);
 
   console.log(res.data);
   return res.data;
 };
 
-const signUp = async (userInfo) => {
+const register = async (userInfo) => {
   const formData = new FormData();
 
   for (const key in userInfo) {
@@ -21,9 +21,9 @@ const signUp = async (userInfo) => {
     type: "image/jpeg",
     uri: userInfo.image,
   });
-  const res = await instance.post("/users/auth/signup", formData);
+  const res = await instance.post("/auth/register", formData);
 
   return res.data;
 };
 
-export { signUp, signIn };
+export { Login, register };
