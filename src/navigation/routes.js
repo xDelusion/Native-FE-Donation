@@ -8,6 +8,7 @@ const ROUTES = {
     HOME: "Home",
     PROFILE: "Profile",
     HOME_NAV: "HomeNavigation",
+    DR:"DonorRequest",
   },
 };
 

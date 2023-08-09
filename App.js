@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import UserContext from "./src/context/UserContext";
 import { getToken } from "./src/apis/auth/storage";
 import AppNavigation from "./src/navigation/AppNavigation";
+import DonorRequest from "./src/screens/DonorRequest";
 
 export default function App() {
   const [user, setUser] = useState(false);
@@ -23,11 +24,14 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <NavigationContainer>
           <SafeAreaView style={styles.container}>
-            <AppNavigation />
+            {/* <AppNavigation /> */}
+            <DonorRequest/>
           </SafeAreaView>
         </NavigationContainer>
       </UserContext.Provider>
     </QueryClientProvider>
+
+  
   );
 }
 
