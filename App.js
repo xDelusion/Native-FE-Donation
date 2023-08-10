@@ -6,7 +6,10 @@ import { useEffect, useState } from "react";
 import UserContext from "./src/context/UserContext";
 import { getToken } from "./src/apis/auth/storage";
 import AppNavigation from "./src/navigation/AppNavigation";
-
+import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Register from "./src/screens/Register";
+// import Login from "./src/screens/Login";
 export default function App() {
   const [user, setUser] = useState(false);
   const checkToken = async () => {
@@ -19,15 +22,23 @@ export default function App() {
     checkToken();
   }, []);
   return (
-    <QueryClientProvider client={new QueryClient()}>
-      <UserContext.Provider value={{ user, setUser }}>
-        <NavigationContainer>
-          <SafeAreaView style={styles.container}>
-            <AppNavigation />
-          </SafeAreaView>
-        </NavigationContainer>
-      </UserContext.Provider>
-    </QueryClientProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={new QueryClient()}>
+        <UserContext.Provider value={{ user, setUser }}>
+          <NavigationContainer>
+            <SafeAreaView
+              style={{
+                flex: 1,
+                paddingTop:
+                  Platform.OS === "android" ? StatusBar.currentHeight : 0,
+              }}
+            >
+              <AppNavigation />
+            </SafeAreaView>
+          </NavigationContainer>
+        </UserContext.Provider>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }
 

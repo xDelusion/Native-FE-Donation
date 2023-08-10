@@ -6,9 +6,10 @@ import Home from "../screens/Home";
 
 const Stack = createStackNavigator();
 
-const HomeNavigation = () => {
+const HomeNavigation = ({ navigation }) => {
   return (
     <Stack.Navigator
+      headStyle={{ backgroundColor: "red" }}
       screenOptions={{ headerTitle: "Test", headerShown: false }}
     >
       <Stack.Screen name={ROUTES.APPROUTES.HOME} component={Home} />
