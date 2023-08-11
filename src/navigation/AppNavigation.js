@@ -45,7 +45,7 @@ const AppNavigation = () => {
             <AntDesign
               name="home"
               size={focused ? 34 : 24}
-              color={focused ? colors.red : colors.light_blue}
+              color={focused ? colors.red : colors.lightgray}
             />
           ),
         }}
@@ -85,7 +85,7 @@ const AppNavigation = () => {
                     <AntDesign
                       name="pluscircle"
                       size={50}
-                      color={focused ? colors.red : colors.light_blue}
+                      color={focused ? colors.red : colors.lightgray}
                     />
                   </View>
                 </View>
@@ -105,7 +105,7 @@ const AppNavigation = () => {
               <AntDesign
                 name="user"
                 size={focused ? 34 : 24}
-                color={focused ? colors.red : colors.light_blue}
+                color={focused ? colors.red : colors.lightgray}
               />
             ),
           }}
