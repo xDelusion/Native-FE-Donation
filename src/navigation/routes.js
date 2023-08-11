@@ -13,13 +13,12 @@ const ROUTES = {
     HOME_NAV: "HomeNavigation",
 
     PROFILE_NAV: "ProfileNavigation",
-    DONOR_REQUEST: "DonorRequestNavigation",
+    // DONOR_REQUEST: "DonorRequestNavigation",j
     PROFILE_NAV: "ProfileNavigation",
 
     // DONOR_REQUEST_NAV: "DonorRequestNavigation",
 
-    DR:"DonorRequest",
-
+    DR: "DonorRequest",
   },
 };
 

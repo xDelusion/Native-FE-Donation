@@ -8,30 +8,35 @@ const login = async (userInfo) => {
 };
 
 const register = async (userInfo) => {
-  const formData = new FormData();
-  const isEmp = "isEmp";
-  const emp_no = "emp_no";
-
-  for (const key in userInfo) {
-    if (key !== "image") {
-      formData.append(key, userInfo[key]);
-    }
-  }
+  console.log(`before if statement = ${userInfo.name}`);
   if (
-    userInfo[isEmp] === undefined ||
-    userInfo[isEmp] === null ||
-    userInfo[isEmp] === "" ||
-    userInfo[emp_no] === undefined ||
-    userInfo[emp_no] === null ||
-    userInfo[emp_no] === ""
+    userInfo["isEmp"] === undefined ||
+    userInfo["isEmp"] === null ||
+    userInfo["isEmp"] === "" ||
+    userInfo["emp_no"] === undefined ||
+    userInfo["emp_no"] === null ||
+    userInfo["emp_no"] === ""
   ) {
-    formData.append("isEmp", false);
+    userInfo = {
+      ...userInfo,
+      isEmp: false,
+    };
   }
-  formData.append("heroList", false);
-  formData.append("noOfDonations", 0);
-  formData.append("isDonor", false);
+  console.log(`before setting up isEmp = ${userInfo.name}`);
+  userInfo = { ...userInfo, isDonor: false, heroList: false, noOfDonations: 0 };
 
-  const res = await instance.post("/auth/register/donor", formData);
+  console.log(`
+    ${userInfo.name},
+    ${userInfo.isEmp},
+      ${userInfo.emp_no},
+      ${userInfo.email},
+      ${userInfo.password},
+      ${userInfo.heroList},
+      ${userInfo.noOfDonations},
+      ${userInfo.isDonor}
+      `);
+
+  const res = await instance.post("/auth/register/donor", userInfo);
 
   return res.data;
 };

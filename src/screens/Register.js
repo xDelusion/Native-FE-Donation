@@ -8,7 +8,6 @@ import {
   Image,
   Pressable,
 } from "react-native";
-// import { ScrollView } from "react-native-gesture-handler";
 
 import { Picker } from "@react-native-picker/picker";
 import React, { useState, useContext } from "react";
@@ -19,13 +18,32 @@ import { colors } from "../utils/colors/colors";
 import { saveToken } from "../apis/auth/storage";
 import UserContext from "../context/UserContext";
 import ROUTES from "../navigation/routes";
+import { getAllPaci } from "../apis/paci/paci";
 
 const Register = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState({});
-  const [selectedValue, setSelectedValue] = useState("A+");
+  const [selectedValue, setSelectedValue] = useState();
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const { setUser } = useContext(UserContext);
+
+  const {
+    data: paciuser,
+    isFetching,
+    refetch,
+  } = useQuery({
+    queryKey: ["paciusers"],
+    queryFn: () => getAllPaci(),
+    onSuccess: (data) => {
+      setUserInfo(data);
+      console.log(`data = ${data}`);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const foundUser = paciuser?.find((user) => user.civilid === userInfo.civilid);
 
   const { mutate: registerFn, error } = useMutation({
     mutationFn: () => register({ userInfo }),
@@ -48,6 +66,7 @@ const Register = ({ navigation }) => {
     }
     return "";
   };
+
   const passwordChangeHandler = (value) => {
     const err = validatePassword(value);
 
@@ -61,81 +80,75 @@ const Register = ({ navigation }) => {
   console.log(userInfo);
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Civil ID</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(value) => {
-          setUserInfo({ ...userInfo, civilid: value });
-        }}
-        placeholder="Civil ID"
-      />
-
-      <Text style={styles.text}>Name</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(value) => {
-          setUserInfo({ ...userInfo, name: value });
-        }}
-        placeholder="Name"
-      />
-      <Text style={styles.text}>Email</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(value) => {
-          setUserInfo({ ...userInfo, email: value });
-        }}
-        placeholder="Email"
-      />
-      <Text style={styles.text}>phone</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(value) => {
-          setUserInfo({ ...userInfo, phone: value });
-        }}
-        placeholder="Phone"
-      />
-      <Text style={styles.text}>blood type</Text>
       <View>
-        <Picker
+        <Text style={styles.text}>Civil ID</Text>
+        <TextInput
           style={styles.input}
-          selectedValue={userInfo.bloodType}
-          onValueChange={(value) => {
-            setSelectedValue(value);
-            setUserInfo({ ...userInfo, bloodType: value });
+          onChangeText={(value) => {
+            setUserInfo({ ...userInfo, civilid: value });
           }}
-        >
-          <Picker.Item label="A+" value="A+" />
-          <Picker.Item label="A-" value="A-" />
-          <Picker.Item label="B+" value="B+" />
-          <Picker.Item label="B-" value="B-" />
-          <Picker.Item label="AB+" value="AB+" />
-          <Picker.Item label="AB-" value="AB-" />
-          <Picker.Item label="O+" value="O+" />
-          <Picker.Item label="O-" value="O-" />
-        </Picker>
+          placeholder="Civil ID"
+        />
+
+        <Text style={styles.text}>Name</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(value) => {
+            setUserInfo({ ...userInfo, name: value });
+          }}
+          placeholder="Name"
+        />
+        <Text style={styles.text}>Email</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(value) => {
+            setUserInfo({ ...userInfo, email: value });
+          }}
+          placeholder="Email"
+        />
+        <Text style={styles.text}>phone</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(value) => {
+            setUserInfo({ ...userInfo, phone: value });
+          }}
+          placeholder="Phone"
+        />
       </View>
-      <Text style={styles.text}>DOB</Text>
+
+      <Text style={styles.text}>blood type</Text>
       <TextInput
         style={styles.input}
-        value="1999-12-12"
         onChangeText={(value) => {
-          setUserInfo({ ...userInfo, dob: value });
+          setUserInfo({ ...userInfo, bloodType: value });
         }}
-        placeholder="Date of birth"
+        placeholder="Blood Type"
       />
 
-      <Text style={styles.text}>Password</Text>
-      <TextInput
-        style={styles.input}
-        secureTextEntry
-        autoCapitalize="none"
-        onChangeText={(value) => {
-          passwordChangeHandler(value);
-        }}
-        placeholder="password"
-      />
       <View>
-        <Text style={(styles.text, (backgroundColor = colors.baby_blue))}>
+        <Text style={styles.text}>DOB</Text>
+        <TextInput
+          style={styles.input}
+          value="1999-12-12"
+          onChangeText={(value) => {
+            setUserInfo({ ...userInfo, dob: value });
+          }}
+          placeholder="Date of birth"
+        />
+
+        <Text style={styles.text}>Password</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry
+          autoCapitalize="none"
+          onChangeText={(value) => {
+            passwordChangeHandler(value);
+          }}
+          placeholder="password"
+        />
+      </View>
+      <View>
+        <Text style={(styles.text, (backgroundColor = colors.grey))}>
           {passwordError !== "" && (
             <Text style={{ color: "grey" }}>{passwordError}</Text>
           )}
