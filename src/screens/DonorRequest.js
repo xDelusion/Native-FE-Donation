@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
+
   rectangle: {
     width: 428,
     height: 242,
@@ -127,4 +128,5 @@ const styles = StyleSheet.create({
     background: "#8b0000",
     borderBottomRightRadius: 121,
   },
+
 });
