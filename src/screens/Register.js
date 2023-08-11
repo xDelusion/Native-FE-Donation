@@ -12,7 +12,7 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import React, { useState, useContext } from "react";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { register } from "../apis/auth/auth";
 import { colors } from "../utils/colors/colors";
 import { saveToken } from "../apis/auth/storage";
@@ -21,7 +21,15 @@ import ROUTES from "../navigation/routes";
 import { getAllPaci } from "../apis/paci/paci";
 
 const Register = ({ navigation }) => {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    civilid: "",
+    name: "",
+    email: "",
+    phone: "",
+    bloodType: "",
+    dob: "",
+    password: "",
+  });
   const [selectedValue, setSelectedValue] = useState();
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -35,7 +43,7 @@ const Register = ({ navigation }) => {
     queryKey: ["paciusers"],
     queryFn: () => getAllPaci(),
     onSuccess: (data) => {
-      setUserInfo(data);
+      // setUserInfo(data);
       console.log(`data = ${data}`);
     },
     onError: (error) => {
@@ -43,10 +51,31 @@ const Register = ({ navigation }) => {
     },
   });
 
-  const foundUser = paciuser?.find((user) => user.civilid === userInfo.civilid);
+  const civilIDChangeHandler = (value) => {
+    const foundUser = paciuser?.find((user) => user.civilid === value);
+    const date1 = new Date(foundUser.dob);
+    const day = date1.getDate();
+    const month = date1.getMonth() + 1; // Months are zero-based
+    const year = date1.getFullYear();
+    const formattedDate = day + "/" + month + "/" + year;
+
+    if (foundUser) {
+      setPasswordError("");
+
+      return setUserInfo({
+        ...userInfo,
+        civilid: value,
+        name: foundUser.name,
+        dob: formattedDate,
+        bloodType: foundUser.bloodType,
+      });
+    } else {
+      setPasswordError("Not valid civil id");
+    }
+  };
 
   const { mutate: registerFn, error } = useMutation({
-    mutationFn: () => register({ userInfo }),
+    mutationFn: () => register(userInfo),
     onSuccess: (data) => {
       saveToken(data.token);
       console.log(` register = ${data}`);
@@ -78,24 +107,30 @@ const Register = ({ navigation }) => {
   };
 
   console.log(userInfo);
+  if (isFetching) {
+    return <Text>Loading...</Text>;
+  }
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.text}>Civil ID</Text>
         <TextInput
           style={styles.input}
+          // value={userInfo.civilid}
           onChangeText={(value) => {
             setUserInfo({ ...userInfo, civilid: value });
           }}
+          onBlur={() => civilIDChangeHandler(userInfo.civilid)}
           placeholder="Civil ID"
         />
 
         <Text style={styles.text}>Name</Text>
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setUserInfo({ ...userInfo, name: value });
-          }}
+          value={userInfo.name}
+          // onChangeText={(value) => {
+          //   setUserInfo({ ...userInfo, name: value });
+          // }}
           placeholder="Name"
         />
         <Text style={styles.text}>Email</Text>
@@ -119,9 +154,10 @@ const Register = ({ navigation }) => {
       <Text style={styles.text}>blood type</Text>
       <TextInput
         style={styles.input}
-        onChangeText={(value) => {
-          setUserInfo({ ...userInfo, bloodType: value });
-        }}
+        value={userInfo.bloodType}
+        // onChangeText={(value) => {
+        //   setUserInfo({ ...userInfo, bloodType: value });
+        // }}
         placeholder="Blood Type"
       />
 
@@ -129,10 +165,10 @@ const Register = ({ navigation }) => {
         <Text style={styles.text}>DOB</Text>
         <TextInput
           style={styles.input}
-          value="1999-12-12"
-          onChangeText={(value) => {
-            setUserInfo({ ...userInfo, dob: value });
-          }}
+          value={userInfo.dob}
+          // onChangeText={(value) => {
+          //   setUserInfo({ ...userInfo, dob: value });
+          // }}
           placeholder="Date of birth"
         />
 
