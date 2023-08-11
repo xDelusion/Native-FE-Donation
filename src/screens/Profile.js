@@ -21,6 +21,7 @@ import {
   Image,
 } from "react-native";
 import React from "react";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
@@ -31,6 +32,11 @@ import { getProfile } from "../apis/profile";
 import { BASE_URL } from "../apis";
 import { colors } from "../utils/colors/colors";
 
+
+import { Button } from "react-native-paper";
+import { removeToken } from "../apis/auth/storage";
+import UserContext from "../context/UserContext";
+import { useContext } from "react";
 
 const Profile = () => {
   
@@ -84,7 +90,21 @@ const Profile = () => {
         <Text>Number of donations:</Text>
         <Text>{`${userInfo?.noOfDonations}`}</Text>
         </View>
+        
+        
+          <View>
+      <Button
+        onPress={() => {
+          removeToken();
+          setUser(false);
+        }}
+      ></Button>
+
+      <Text>Profile</Text>
+    </View>
     </SafeAreaView>
+
+
   );
 };
 
