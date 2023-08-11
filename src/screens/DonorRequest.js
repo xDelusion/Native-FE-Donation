@@ -124,16 +124,16 @@ const styles = StyleSheet.create({
   },
 
   
-rectangle:{
+// rectangle:{
 
 
-width: 428,
-height: 242,
-left: 0,
-top: 0,
-background:'#8b0000',
-borderBottomRightRadius: 121,
-}
+// width: 428,
+// height: 242,
+// left: 0,
+// top: 0,
+// background:'#8b0000',
+// borderBottomRightRadius: 121,
+// }
 });
 
 

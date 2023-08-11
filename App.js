@@ -7,6 +7,7 @@ import UserContext from "./src/context/UserContext";
 import { getToken } from "./src/apis/auth/storage";
 import AppNavigation from "./src/navigation/AppNavigation";
 import DonorRequest from "./src/screens/DonorRequest";
+import Profile from "./src/screens/Profile";
 
 export default function App() {
   const [user, setUser] = useState(false);
@@ -25,7 +26,8 @@ export default function App() {
         <NavigationContainer>
           <SafeAreaView style={styles.container}>
             {/* <AppNavigation /> */}
-            <DonorRequest/>
+            {/* <DonorRequest/> */}
+            <Profile/>
           </SafeAreaView>
         </NavigationContainer>
       </UserContext.Provider>
