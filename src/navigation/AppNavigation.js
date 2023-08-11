@@ -3,7 +3,7 @@ import ROUTES from "./routes";
 import ProfileNavigation from "./ProfileNavigation";
 import UserContext from "../context/UserContext";
 import { colors } from "../utils/colors/colors";
-
+import DonorRequest from "../screens/DonorRequest";
 import { removeToken } from "../apis/auth/storage";
 import AuthNavigation from "./AuthNavigation";
 import { AntDesign } from "@expo/vector-icons";
@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { View, Text } from "react-native";
 import HomeNavigation from "./HomeNavigation";
 import React from "react";
-import CreateDonorRequest from "../screens/CreateDonorRequest";
+
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const screenOptions = {
@@ -52,11 +52,10 @@ const AppNavigation = () => {
       />
       {user ? (
         <Tab.Screen
-          name={ROUTES.APPROUTES.DONOR_REQUEST}
-          component={CreateDonorRequest}
+          name={ROUTES.APPROUTES.DR}
+          component={DonorRequest}
           options={{
             title: "",
-
             tabBarIcon: ({ color, size, focused }) => {
               return (
                 <View

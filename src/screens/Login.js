@@ -112,7 +112,7 @@ const Login = ({ navigation }) => {
             height: "100%",
             width: "100%",
             position: "absolute",
-            backgroundColor: colors.black,
+            backgroundColor: colors.red,
             zIndex: 1,
             justifyContent: "center",
             alignItems: "center",
