@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import UserContext from "./src/context/UserContext";
 import { getToken } from "./src/apis/auth/storage";
 import AppNavigation from "./src/navigation/AppNavigation";
-
 import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 
 export default function App() {
   const [user, setUser] = useState(false);
@@ -22,7 +22,6 @@ export default function App() {
     checkToken();
   }, []);
   return (
-
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={new QueryClient()}>
         <UserContext.Provider value={{ user, setUser }}>
