@@ -30,9 +30,19 @@ const updateProfile = async (userInfo) => {
         });
     }
   }
-
+console.log(formdata)
   const res = await instance.put(`/profile`, formdata);
   return res.data;
 };
 
-export { getProfile, updateProfile, getProfileById };
+
+const getAllUsers = async () => {
+    try {
+      const { data } = await instance.get(`/getusers`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export { getProfile, updateProfile, getProfileById,getAllUsers };
