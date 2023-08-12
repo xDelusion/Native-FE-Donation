@@ -1,9 +1,51 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getRecipientReqs } from "../apis/recipientRequest/recipient";
+import React, { useEffect } from "react";
+import Chart from "../components/Chart/Chart";
+
 import { colors } from "../utils/colors/colors";
 
+
 const Home = ({ navigation }) => {
+  const {
+    data: recipientRequestData,
+    isFetching,
+    refetch,
+  } = useQuery({
+    queryKey: ["recipientRequest"],
+    queryFn: () => getRecipientReqs(),
+    onSuccess: (data) => {
+      console.log(`data = ${data}`);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  let bloodTypeCounts = {};
+  if (recipientRequestData) {
+    recipientRequestData.forEach((recipientRequest) => {
+      if (bloodTypeCounts[recipientRequest.bloodType]) {
+        bloodTypeCounts[recipientRequest.bloodType] += 1;
+      } else {
+        bloodTypeCounts[recipientRequest.bloodType] = 1;
+      }
+    });
+  } else {
+    console.log("no data");
+  }
+  const bloodTypeData = Object.keys(bloodTypeCounts).map((bloodType) => ({
+    label: bloodType,
+    value: bloodTypeCounts[bloodType],
+  }));
+
   return (
+
+    <View>
+      <View>
+        <Chart bloodTypes={bloodTypeData} />
+      </View>
+
     <View flex={1} >
     <View flex={0.2} >
       <View
@@ -20,6 +62,7 @@ const Home = ({ navigation }) => {
  alignItems:'flex-end',
 paddingButtom:10}}>
   </View>
+
 
       <Text>Home</Text>
     </View>
