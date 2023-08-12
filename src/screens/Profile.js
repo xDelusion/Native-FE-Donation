@@ -14,13 +14,14 @@ import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../apis/profile";
 import { BASE_URL } from "../apis";
 import { colors } from "../utils/colors/colors";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 const Profile = () => {
   
   const { user, setUser } = useContext(UserContext);
   const [userInfo, setUserInfo] = useState({});
-  const navigation = useNavigation();
+  const navigation = useNavigation({navigation});
   const {
     data: dataProfile,
     isFetching,
@@ -49,12 +50,15 @@ const Profile = () => {
    alignItems:'flex-end',
   paddingButtom:10}}
    >
-        <Image  
-        source={require("../../assets/Profile-PNG-File.png")}
-        style={styles.profileImage}/>
-        <Image
+    { !(dataProfile?.image) ? 
+
+      <Image  
+      source={require("../../assets/Profile-PNG-File.png")}
+      style={styles.profileImage}/>
+       : <Image
         source={{ uri: `${BASE_URL}/${dataProfile?.image}`}}
         style={styles.profileImage}/>
+      }
        </View>
         <View >       
         <Text style={styles.userName}>Name:</Text>
@@ -74,10 +78,59 @@ const Profile = () => {
         <Text style={styles.value}>{`${dataProfile?.bloodType}`}</Text>
         <Text style={styles.label}>Number of donations:</Text>
         <Text style={styles.value}>{`${dataProfile?.noOfDonations}`}</Text>
+        <View style={ {justifyContent:"center",
+              alignItems: "center",}}>
+        <TouchableOpacity
+            style={{
+              backgroundColor: colors.red,
+              width: 200,
+              height: 50,
+              justifyContent:"center",
+              alignItems: "center",
+              marginTop:20,
+              borderRadius:8,
+            }}
+            onPress={() => {
+              navigation.navigate(ROUTES.APPROUTES.EDITPROFILE, {
+                userInfo: userInfo,
+                setUserInfo: setUserInfo,
+              });
+            }}
+          >
+            <Text style={{ color: colors.white, fontWeight: "bold", fontSize:20 }}>
+              Edit Ptofile
+            </Text>
+          </TouchableOpacity></View>
         </View>
         </View>
         </View> 
-        </View> 
+        
+        {/* <View style={ {justifyContent:"center",
+              alignItems: "center",}}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(ROUTES.APPROUTES.EDITPROFILE, {
+                userInfo: userInfo,
+                setUserInfo: setUserInfo,
+              });
+            }}
+            style={{
+              backgroundColor: colors.red,
+              width: 200,
+              height: 50,
+              justifyContent:"center",
+              alignItems: "center",
+              marginTop:20,
+              borderRadius:8,
+            }}
+          >
+            <Text  style={{ color: colors.white, fontWeight: "bold", fontSize:20 }}>
+              Edit Profile
+            </Text>
+          </TouchableOpacity>
+        </View> */}
+        
+        </View>
          </View> 
          </View>   
     
