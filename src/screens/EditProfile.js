@@ -135,6 +135,7 @@ import {
                   justifyContent: "flex-start",
                   alignItems: "flex-start",
                   marginBottom: 20,
+                  marginVertical:30,
                   flex: 1,
                 }}
               >
@@ -172,8 +173,8 @@ import {
                   flex: 1,
                   justifyContent: "center",
                   alignItems: "center",
-                  width: 200,
-                  height: 200,
+                  width: 150,
+                  height: 150,
                   borderRadius: 100,
                   borderWidth: 4,
                   marginLeft: "auto",
@@ -187,8 +188,8 @@ import {
                         uri: image || `${BASE_URL}/${updateUserInfo.image}`,
                       }}
                       style={{
-                        width: 200,
-                        height: 200,
+                        width: 150,
+                        height: 150,
                         borderRadius: 100,
                         borderWidth: 4,
                         borderColor: colors.red,
@@ -275,8 +276,8 @@ import {
   
   const styles = StyleSheet.create({
     avatar_image: {
-      width: 200,
-      height: 200,
+      width: 150,
+      height: 150,
       backgroundColor: "grey",
       borderRadius: 100,
       overflow: "hidden",
