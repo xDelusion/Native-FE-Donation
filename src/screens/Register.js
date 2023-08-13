@@ -151,9 +151,6 @@ const Register = ({ navigation }) => {
       <TextInput
         style={styles.input}
         value={userInfo.bloodType}
-        // onChangeText={(value) => {
-        //   setUserInfo({ ...userInfo, bloodType: value });
-        // }}
         placeholder="Blood Type"
       />
 
@@ -162,9 +159,6 @@ const Register = ({ navigation }) => {
         <TextInput
           style={styles.input}
           value={moment(userInfo.dob).format("L")}
-          // onChangeText={(value) => {
-          //   setUserInfo({ ...userInfo, dob: value });
-          // }}
           placeholder="Date of birth"
         />
 

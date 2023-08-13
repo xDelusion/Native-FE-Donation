@@ -11,11 +11,11 @@ import { BarChart } from "react-native-chart-kit";
 
 const Statistics = ({ navigation }) => {
   const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFrom: colors.light_red,
     backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
+    backgroundGradientTo: colors.red,
     backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(0, 0, 0, 1)`,
+    color: (opacity = 1) => `rgba(203,22, 22, 1)`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
