@@ -14,6 +14,7 @@ import BloodTypeButton from "../components/HomeRecipientRequest/BloodTypeButton"
 import { colors } from "../utils/colors/colors";
 import ROUTES from "../navigation/routes";
 
+import { TouchableOpacity } from "react-native-gesture-handler";
 const Home = ({ navigation }) => {
   return (
     <View
@@ -21,7 +22,6 @@ const Home = ({ navigation }) => {
       style={{
         alignItems: "stretch",
         justifyContent: "space-between",
-        height: "100%",
       }}
     >
       <View flex={0.2}>
@@ -53,9 +53,11 @@ const Home = ({ navigation }) => {
         </View>
       </View>
       <ScrollView
-        contentContainerStyle={{ flex: 0.7, gap: 50, height: "100%" }}
+        contentContainerStyle={{
+          flex: 0.7,
+        }}
       >
-        <View style={{ flex: 0.5 }}>
+        <View style={{ flex: 0.5, paddingTop: 10 }}>
           <Image
             source={require("../../assets/bloodBank.jpg")}
             style={{ height: "100%", width: "100%" }}
