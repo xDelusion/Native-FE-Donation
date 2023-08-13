@@ -8,7 +8,7 @@ import { getToken } from "./src/apis/auth/storage";
 import AppNavigation from "./src/navigation/AppNavigation";
 import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
+import { colors } from "./src/utils/colors/colors";
 
 export default function App() {
   const [user, setUser] = useState(false);
@@ -22,10 +22,10 @@ export default function App() {
     checkToken();
   }, []);
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.red }}>
       <QueryClientProvider client={new QueryClient()}>
         <UserContext.Provider value={{ user, setUser }}>
-          <NavigationContainer>
+          <NavigationContainer style={{ backgroundColor: colors.red }}>
             <SafeAreaView
               style={{
                 flex: 1,
@@ -39,7 +39,6 @@ export default function App() {
         </UserContext.Provider>
       </QueryClientProvider>
     </GestureHandlerRootView>
-
   );
 }
 

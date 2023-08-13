@@ -49,38 +49,42 @@ const Home = ({ navigation }) => {
       <View style={styles.headerContainer}>
         <Text>Home</Text>
       </View>
-      <View>
+      <View style={styles.section}>
         <Text>Blood Bags Required</Text>
         {/* <View>
             <Chart bloodTypes={bloodTypeData} />
           </View> */}
       </View>
-      <View>{filterData}</View>
-      <View>
-        <Text>Blood Groups</Text>
-        <ScrollView
-          contentContainerStyle={styles.bloodGroupContainer}
-          horizontal={false} // Allow horizontal scrolling
-        >
-          {bloodArray.map((bloodType) => (
-            <BloodTypeButton
-              key={bloodType}
-              bloodType={bloodType}
-              onPress={() => handleBloodTypePress(bloodType)}
-            />
-          ))}
-        </ScrollView>
+      <View style={styles.contentContainer}>
+        <View style={styles.section}>
+          <Text>Recipient Requests</Text>
+        </View>
+        <View style={styles.section}>{filterData}</View>
+        <View style={styles.section}>
+          <Text>Blood Groups</Text>
+          <ScrollView
+            contentContainerStyle={styles.bloodGroupContainer}
+            horizontal={false} // Allow horizontal scrolling
+          >
+            {bloodArray.map((bloodType) => (
+              <BloodTypeButton
+                key={bloodType}
+                bloodType={bloodType}
+                onPress={() => handleBloodTypePress(bloodType)}
+              />
+            ))}
+          </ScrollView>
+        </View>
       </View>
     </ScrollView>
   );
 };
 
-export default Home;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.lightgray,
+    height: "100%",
   },
   headerContainer: {
     padding: 20,
@@ -90,9 +94,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowOffset: { width: 0, height: 10 },
   },
+  contentContainer: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  section: {
+    flex: 1,
+    padding: 20,
+  },
   bloodGroupContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "flex-start",
   },
 });
+
+export default Home;
