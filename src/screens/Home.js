@@ -1,13 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getRecipientReqs } from "../apis/recipientRequest/recipient";
-import React, { useEffect } from "react";
-import Chart from "../components/Chart/Chart";
-
+import RecipientRequestItem from "../components/HomeRecipientRequest/RecipientRequestItem";
+import BloodTypeButton from "../components/HomeRecipientRequest/BloodTypeButton";
 import { colors } from "../utils/colors/colors";
-
+// import Chart from "../components/HomeRecipientRequest/Chart";
 
 const Home = ({ navigation }) => {
+  const [bloodType, setBloodType] = useState("ALL");
+  const bloodArray = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-", "ALL"];
+
   const {
     data: recipientRequestData,
     isFetching,
@@ -22,74 +25,74 @@ const Home = ({ navigation }) => {
       console.log(error);
     },
   });
-  let bloodTypeCounts = {};
-  if (recipientRequestData) {
-    recipientRequestData.forEach((recipientRequest) => {
-      if (bloodTypeCounts[recipientRequest.bloodType]) {
-        bloodTypeCounts[recipientRequest.bloodType] += 1;
-      } else {
-        bloodTypeCounts[recipientRequest.bloodType] = 1;
-      }
-    });
-  } else {
-    console.log("no data");
-  }
-  const bloodTypeData = Object.keys(bloodTypeCounts).map((bloodType) => ({
-    label: bloodType,
-    value: bloodTypeCounts[bloodType],
-  }));
+
+  const handleBloodTypePress = (selectedBloodType) => {
+    if (selectedBloodType !== "ALL") {
+      setBloodType(selectedBloodType);
+    }
+  };
+
+  const filterData = recipientRequestData?.map((recipientRequest) => {
+    if (bloodType === "ALL" || bloodType === recipientRequest.bloodType) {
+      return (
+        <RecipientRequestItem
+          key={recipientRequest.serial_no}
+          request={recipientRequest}
+        />
+      );
+    }
+    return null;
+  });
 
   return (
-
-    <View>
-      <View>
-        <Chart bloodTypes={bloodTypeData} />
+    <ScrollView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text>Home</Text>
       </View>
-
-    <View flex={1} >
-    <View flex={0.2} >
-      <View
-      position="absolute"
-      top={0}
-      left={0}
-      right={0}
-      bottom={0}
-      borderBottomRightRadius="2"
-    >
-  <View style={styles.container}>
-      <View  style={ { flex:1,
- justifyContent:'right',
- alignItems:'flex-end',
-paddingButtom:10}}>
-  </View>
-
-
-      <Text>Home</Text>
-    </View>
-    </View>
-    </View>
-</View>
+      <View>
+        <Text>Blood Bags Required</Text>
+        {/* <View>
+            <Chart bloodTypes={bloodTypeData} />
+          </View> */}
+      </View>
+      <View>{filterData}</View>
+      <View>
+        <Text>Blood Groups</Text>
+        <ScrollView
+          contentContainerStyle={styles.bloodGroupContainer}
+          horizontal={false} // Allow horizontal scrolling
+        >
+          {bloodArray.map((bloodType) => (
+            <BloodTypeButton
+              key={bloodType}
+              bloodType={bloodType}
+              onPress={() => handleBloodTypePress(bloodType)}
+            />
+          ))}
+        </ScrollView>
+      </View>
+    </ScrollView>
   );
 };
 
 export default Home;
 
-
-
-  
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor:colors.red,
     flex: 1,
-    position:"absolute",
-    top:0,
-    left:0,
-    right:0,
-    bottom:0,
-    borderBottomRightRadius:100,
-    shadowColor:colors.darkgray,
-    shadowOpacity:50,
-    shadowOffset:10,
+    backgroundColor: colors.lightgray,
+  },
+  headerContainer: {
+    padding: 20,
+    backgroundColor: colors.red,
+    borderBottomRightRadius: 100,
+    shadowColor: colors.darkgray,
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 10 },
+  },
+  bloodGroupContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
   },
 });
