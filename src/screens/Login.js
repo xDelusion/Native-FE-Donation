@@ -1,20 +1,15 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Button,
-  Image,
-  Touchable,
-} from "react-native";
-import { TextInput } from "react-native-paper";
 import React, { useContext, useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { colors } from "../utils/colors/colors";
+import { TextInput } from "react-native-paper";
 import { login } from "../apis/auth/auth";
 import ROUTES from "../navigation/routes";
 import { useMutation } from "@tanstack/react-query";
 import UserContext from "../context/UserContext";
 import { saveToken } from "../apis/auth/storage";
+import Logo from "../components/Login/Logo";
+import InputField from "../components/Login/InputField";
+import Link from "../components/Login/Link";
 
 const Login = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState({});
@@ -37,136 +32,92 @@ const Login = ({ navigation }) => {
       console.log(error);
     },
   });
+
   return (
     <>
       <View style={styles.container}>
-        <Image
-          source={require("../media/project_logo.png")}
-          style={styles.image}
-        />
-        <View style={[styles.entery, { flex: 0.8 }]}>
-          <Text style={styles.text}>Civil ID</Text>
-          <TextInput
-            style={styles.input}
+        <Logo />
+        <View style={styles.entry}>
+          <InputField
+            label="Civil ID"
             placeholder="Civil ID"
-            autoCapitalize="none"
-            onChangeText={(value) => {
-              setUserInfo({ ...userInfo, civilid: value });
-            }}
+            onChangeText={(value) =>
+              setUserInfo({ ...userInfo, civilid: value })
+            }
           />
-          <Text style={styles.text}>Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="password"
-            autoCapitalize="none"
+          <InputField
+            label="Password"
+            placeholder="Password"
             secureTextEntry
-            onChangeText={(value) => {
-              setUserInfo({ ...userInfo, password: value });
-            }}
+            onChangeText={(value) =>
+              setUserInfo({ ...userInfo, password: value })
+            }
           />
-
-          <View
-            style={{
-              flex: 0.5,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: 10,
-            }}
-          >
-            <TouchableOpacity
+          <View style={styles.linkPosition}>
+            <Link
+              text="Forgot password?"
               onPress={() => navigation.navigate(ROUTES.AUTHROUTES.FORGOT)}
-            >
-              <Text style={styles.link_text}>Forgot password?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
+            />
+            <Link
+              text="Register"
               onPress={() => navigation.navigate(ROUTES.AUTHROUTES.REGISTER)}
-            >
-              <Text style={styles.link_text}>Register</Text>
-            </TouchableOpacity>
+            />
           </View>
-
           <TouchableOpacity
-            style={{
-              backgroundColor: colors.red,
-              width: 200,
-              height: 50,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onPress={() => {
-              console.log("calling sign in");
-              loginFn();
-            }}
+            style={styles.loginButton}
+            onPress={() => loginFn()}
           >
-            <Text style={{ color: colors.white, fontWeight: "bold" }}>
-              Login
-            </Text>
+            <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
         </View>
+        {isLoading && (
+          <View style={styles.loadingOverlay}>
+            <Text>Loading..</Text>
+          </View>
+        )}
       </View>
-      {isLoading && (
-        <View
-          style={{
-            flex: 1,
-            height: "100%",
-            width: "100%",
-            position: "absolute",
-            backgroundColor: colors.red,
-            zIndex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text>Loading..</Text>
-        </View>
-      )}
     </>
   );
 };
 
-export default Login;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.white,
   },
-  input: {
-    height: 40,
-    borderColor: colors.red,
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    fontSize: 16,
-    backgroundColor: colors.white,
-    width: 300,
+  entry: {
+    flex: 0.8,
   },
-  text: {
-    color: colors.red,
-    fontSize: 16,
+  loginButton: {
+    backgroundColor: colors.red,
+    width: 200,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loginButtonText: {
+    color: colors.white,
     fontWeight: "bold",
   },
-  link_text: {
-    color: "#1F7194",
+  loadingOverlay: {
+    flex: 1,
+    height: "100%",
+    width: "100%",
+    position: "absolute",
+    backgroundColor: colors.red,
+    zIndex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  link_position: {
-    flex: 0.18,
+  linkPosition: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 20,
-  },
-  image: {
-    width: 350,
-    height: 350,
-    flex: 0.5,
-  },
-  entery: {
-    flex: 0.18,
+    marginTop: 10,
   },
 });
+
+export default Login;

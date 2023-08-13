@@ -19,6 +19,7 @@ import { saveToken } from "../apis/auth/storage";
 import UserContext from "../context/UserContext";
 import ROUTES from "../navigation/routes";
 import { getAllPaci } from "../apis/paci/paci";
+import moment from "moment/moment";
 
 const Register = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState({
@@ -53,11 +54,6 @@ const Register = ({ navigation }) => {
 
   const civilIDChangeHandler = (value) => {
     const foundUser = paciuser?.find((user) => user.civilid === value);
-    const date1 = new Date(foundUser.dob);
-    const day = date1.getDate();
-    const month = date1.getMonth() + 1; // Months are zero-based
-    const year = date1.getFullYear();
-    const formattedDate = day + "/" + month + "/" + year;
 
     if (foundUser) {
       setPasswordError("");
@@ -66,7 +62,7 @@ const Register = ({ navigation }) => {
         ...userInfo,
         civilid: value,
         name: foundUser.name,
-        dob: formattedDate,
+        dob: foundUser.dob,
         bloodType: foundUser.bloodType,
       });
     } else {
@@ -165,7 +161,7 @@ const Register = ({ navigation }) => {
         <Text style={styles.text}>DOB</Text>
         <TextInput
           style={styles.input}
-          value={userInfo.dob}
+          value={moment(userInfo.dob).format("L")}
           // onChangeText={(value) => {
           //   setUserInfo({ ...userInfo, dob: value });
           // }}
