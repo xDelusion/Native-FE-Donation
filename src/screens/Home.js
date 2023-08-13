@@ -7,11 +7,7 @@ import {
   Button,
   Image,
 } from "react-native";
-import { useQuery } from "@tanstack/react-query";
-import { getRecipientReqs } from "../apis/recipientRequest/recipient";
-import RecipientRequestItem from "../components/HomeRecipientRequest/RecipientRequestItem";
-import BloodTypeButton from "../components/HomeRecipientRequest/BloodTypeButton";
-import { colors } from "../utils/colors/colors";
+
 import { Link } from "@react-navigation/native";
 import ROUTES from "../navigation/routes";
 
@@ -39,8 +35,25 @@ const Home = ({ navigation }) => {
               title="heloo"
               onPress={() => navigation.navigate(ROUTES.APPROUTES.ABOUT)}
             />
+
           </View>
         </View>
+    <ScrollView style={styles.container}>
+      <View
+        style={[
+          styles.headerContainer,
+          { flexDirection: "row", justifyContent: "space-between" },
+        ]}
+      >
+        <Text>Home</Text>
+   
+      </View>
+      <View style={styles.section}>
+        <Text>Blood Bags Required</Text>
+        {/* <View>
+            <Chart bloodTypes={bloodTypeData} />
+          </View> */}
+
       </View>
       <ScrollView contentContainerStyle={{ flex: 0.7, gap: 50 }}>
         <View style={{ flex: 1 }}>
@@ -49,11 +62,13 @@ const Home = ({ navigation }) => {
             style={{ height: "100%", width: "100%" }}
           />
         </View>
+
         <View style={{ flex: 1 }}>
           <Image
             source={require("../../assets/bloodBank.jpg")}
             style={{ height: "100%", width: "100%" }}
           />
+
         </View>
       </ScrollView>
     </View>

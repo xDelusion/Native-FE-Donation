@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { colors } from "../../utils/colors/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { ScrollView } from "react-native-gesture-handler";
 
 const RecipientRequestItem = ({ request, onPressDonate }) => {
   const bloodBagIcons = Array.from(
@@ -27,7 +28,11 @@ const RecipientRequestItem = ({ request, onPressDonate }) => {
       </View>
       <View style={styles.infoContainer}>
         <Text>{request.noOfBloodBags}</Text>
-        <View style={styles.bloodBagsContainer}>{bloodBagIcons}</View>
+        <View style={styles.bloodBagsContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {bloodBagIcons}
+          </ScrollView>
+        </View>
         <TouchableOpacity style={styles.donateButton} onPress={onPressDonate}>
           <Text>Donate</Text>
         </TouchableOpacity>
@@ -58,6 +63,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   bloodBagsContainer: {
+    flex: 0.5,
     flexDirection: "row",
     alignItems: "center",
   },
