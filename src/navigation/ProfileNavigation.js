@@ -56,9 +56,8 @@ const ProfileNavigation = () => {
   const { setUser } = useContext(UserContext);
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerTitle: "",
-        headerShown: true,
+    headStyle={{ backgroundColor: "red" }}
+    screenOptions={{ headerTitle: "Test", headerShown: false ,
 
         headerRight: () => {
           return (

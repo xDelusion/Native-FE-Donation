@@ -55,6 +55,7 @@ const AppNavigation = () => {
           name={ROUTES.APPROUTES.DR}
           component={DonorRequest}
           options={{
+            headerShown:false,
             title: "",
             tabBarIcon: ({ color, size, focused }) => {
               return (

@@ -9,7 +9,8 @@ const Stack = createStackNavigator();
 const DonorRequestNavigation = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ headerTitle: "Test", headerShown: false }}
+    headStyle={{ backgroundColor: "red" }}
+    screenOptions={{ headerTitle: "Test", headerShown: false }}
     >
       <Stack.Screen name={ROUTES.APPROUTES.DR} component={DonorRequest} />
     </Stack.Navigator>

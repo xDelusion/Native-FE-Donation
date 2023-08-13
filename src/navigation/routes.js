@@ -12,7 +12,7 @@ const ROUTES = {
     PROFILE: "Profile",
     HOME_NAV: "HomeNavigation",
     ABOUT: "About",
-    ABOUT_NAV:"AboutNavigation",
+   
     
     PROFILE_NAV: "ProfileNavigation",
     // DONOR_REQUEST: "DonorRequestNavigation",j
