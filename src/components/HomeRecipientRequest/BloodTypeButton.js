@@ -2,10 +2,32 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { colors } from "../../utils/colors/colors";
 
-const BloodTypeButton = ({ bloodType, onPress }) => {
+const BloodTypeButton = ({ bloodType, isFocused, onFocus, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.mobileButton}>
-      <Text style={styles.buttonText}>{bloodType}</Text>
+    <TouchableOpacity
+      onPress={() => {
+        onFocus(bloodType);
+        onPress();
+      }}
+      style={[
+        styles.mobileButton,
+        {
+          backgroundColor: isFocused ? colors.red : colors.white,
+          borderColor: isFocused ? colors.white : colors.red,
+        },
+      ]}
+    >
+      <Text
+        style={[
+          styles.buttonText,
+          {
+            color: isFocused ? colors.white : colors.red,
+          },
+        ]}
+      >
+        {" "}
+        {bloodType}
+      </Text>
     </TouchableOpacity>
   );
 };

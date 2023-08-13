@@ -1,15 +1,25 @@
-
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getRecipientReqs } from "../apis/recipientRequest/recipient";
 import RecipientRequestItem from "../components/HomeRecipientRequest/RecipientRequestItem";
 import BloodTypeButton from "../components/HomeRecipientRequest/BloodTypeButton";
 import { colors } from "../utils/colors/colors";
-import ROUTES from "../navigation/routes";
+import Chart from "../components/Chart/Chart";
+import { BarChart } from "react-native-chart-kit";
 // import Chart from "../components/HomeRecipientRequest/Chart";
 
-const Home = ({ navigation }) => {
+const Statistics = ({ navigation }) => {
+  const chartConfig = {
+    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "#08130D",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(0, 0, 0, 1)`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+  };
   const [bloodType, setBloodType] = useState("ALL");
   const [focusedBloodType, setFocusedBloodType] = useState("ALL");
   const bloodArray = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-", "ALL"];
@@ -29,6 +39,24 @@ const Home = ({ navigation }) => {
     },
   });
 
+  const getDataForBarChat = () => {
+    let res = {};
+    recipientRequestData?.forEach((request) => {
+      if (res[request.bloodType]) {
+        res[request.bloodType] += request.noOfBloodBags;
+      } else {
+        res[request.bloodType] = request.noOfBloodBags;
+      }
+    });
+    return {
+      labels: Object.keys(res),
+      datasets: [
+        {
+          data: Object.values(res),
+        },
+      ],
+    };
+  };
 
   const handleBloodTypePress = (selectedBloodType) => {
     if (selectedBloodType !== "ALL") {
@@ -38,39 +66,39 @@ const Home = ({ navigation }) => {
     }
   };
 
-  const filterData = recipientRequestData?.map((recipientRequest) => {
-    if (bloodType === "ALL" || bloodType === recipientRequest.bloodType) {
+  const filterData = recipientRequestData
+    ?.filter((request) => {
+      if (focusedBloodType === "ALL") {
+        return true;
+      }
+      return request.bloodType == focusedBloodType;
+    })
+    ?.map((recipientRequest) => {
       return (
         <RecipientRequestItem
           key={recipientRequest.serial_no}
           request={recipientRequest}
         />
       );
-    }
-    return null;
-  });
+    });
 
   return (
     <ScrollView style={styles.container}>
-      <View
-        style={[
-          styles.headerContainer,
-          { flexDirection: "row", justifyContent: "space-between" },
-        ]}
-      >
+      <View style={styles.headerContainer}>
         <Text>Home</Text>
-        <Button
-          title="Statistics"
-          onPress={() => {
-            navigation.navigate(ROUTES.APPROUTES.STATISTICS);
-          }}
-        />
       </View>
       <View style={styles.section}>
         <Text>Blood Bags Required</Text>
         {/* <View>
-            <Chart bloodTypes={bloodTypeData} />
-          </View> */}
+          <Chart bloodTypes={bloodTypeData} />
+        </View> */}
+        <BarChart
+          chartConfig={chartConfig}
+          data={getDataForBarChat()}
+          height={220}
+          width={400}
+          verticalLabelRotation={30}
+        />
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.section}>
@@ -87,7 +115,9 @@ const Home = ({ navigation }) => {
               <BloodTypeButton
                 key={bloodType}
                 bloodType={bloodType}
-                focused={focusedBloodType === bloodType}
+                isFocused={
+                  focusedBloodType.toLowerCase() === bloodType.toLowerCase()
+                }
                 onFocus={(selectedBloodType) =>
                   setFocusedBloodType(selectedBloodType)
                 }
@@ -130,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Statistics;

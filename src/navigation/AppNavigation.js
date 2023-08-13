@@ -7,7 +7,7 @@ import DonorRequest from "../screens/DonorRequest";
 import { removeToken } from "../apis/auth/storage";
 import AuthNavigation from "./AuthNavigation";
 import { AntDesign } from "@expo/vector-icons";
-
+import StatisticNavigation from "./StatisticNavigation";
 import { useContext } from "react";
 import { View, Text } from "react-native";
 import HomeNavigation from "./HomeNavigation";
@@ -50,6 +50,21 @@ const AppNavigation = () => {
           ),
         }}
       />
+      {/* <Tab.Screen
+        name={ROUTES.APPROUTES.STATISTICS_NAV}
+        component={StatisticNavigation}
+        options={{
+          title: "",
+          headerShown: false,
+          tabBarIcon: ({ color, size, focused }) => (
+            <AntDesign
+              name="areachart"
+              size={focused ? 34 : 24}
+              color={focused ? colors.red : colors.lightgray}
+            />
+          ),
+        }}
+      /> */}
       {user ? (
         <Tab.Screen
           name={ROUTES.APPROUTES.DR}
