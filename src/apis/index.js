@@ -7,6 +7,7 @@ import { getToken } from "./auth/storage";
 // const BASE_URL = "http://172.20.10.2:8081";
 
 const BASE_URL = "http://192.168.2.19:8000";
+// const BASE_URL = "http://192.168.0.198:8000";
 
 const instance = axios.create({
   baseURL: BASE_URL + "/api",
