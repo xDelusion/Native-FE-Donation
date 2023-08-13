@@ -1,111 +1,91 @@
-
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Button,
+  Image,
+} from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getRecipientReqs } from "../apis/recipientRequest/recipient";
 import RecipientRequestItem from "../components/HomeRecipientRequest/RecipientRequestItem";
 import BloodTypeButton from "../components/HomeRecipientRequest/BloodTypeButton";
 import { colors } from "../utils/colors/colors";
 import ROUTES from "../navigation/routes";
-// import Chart from "../components/HomeRecipientRequest/Chart";
 
 const Home = ({ navigation }) => {
-  const [bloodType, setBloodType] = useState("ALL");
-  const [focusedBloodType, setFocusedBloodType] = useState("ALL");
-  const bloodArray = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-", "ALL"];
-
-  const {
-    data: recipientRequestData,
-    isFetching,
-    refetch,
-  } = useQuery({
-    queryKey: ["recipientRequest"],
-    queryFn: () => getRecipientReqs(),
-    onSuccess: (data) => {
-      console.log(`data = ${data}`);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-
-
-  const handleBloodTypePress = (selectedBloodType) => {
-    if (selectedBloodType !== "ALL") {
-      setBloodType(selectedBloodType);
-
-      setFocusedBloodType(selectedBloodType);
-    }
-  };
-
-  const filterData = recipientRequestData?.map((recipientRequest) => {
-    if (bloodType === "ALL" || bloodType === recipientRequest.bloodType) {
-      return (
-        <RecipientRequestItem
-          key={recipientRequest.serial_no}
-          request={recipientRequest}
-        />
-      );
-    }
-    return null;
-  });
-
   return (
-    <ScrollView style={styles.container}>
-      <View
-        style={[
-          styles.headerContainer,
-          { flexDirection: "row", justifyContent: "space-between" },
-        ]}
+    <View
+      flex={1}
+      style={{
+        alignItems: "stretch",
+        justifyContent: "space-between",
+        height: "100%",
+      }}
+    >
+      <View flex={0.2}>
+        <View
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          borderBottomRightRadius="2"
+        >
+          <View style={styles.container}>
+            {/* <Link
+              text="About"
+              onPress={() => navigation.navigate(ROUTES.APPROUTES.ABOUT)}
+            /> */}
+            <Button
+              title="About"
+              onPress={() => navigation.navigate(ROUTES.APPROUTES.ABOUT)}
+            />
+
+            <Button
+              title="Statistics"
+              onPress={() => {
+                navigation.navigate(ROUTES.APPROUTES.STATISTICS);
+              }}
+            />
+          </View>
+        </View>
+      </View>
+      <ScrollView
+        contentContainerStyle={{ flex: 0.7, gap: 50, height: "100%" }}
       >
-        <Text>Home</Text>
-        <Button
-          title="Statistics"
-          onPress={() => {
-            navigation.navigate(ROUTES.APPROUTES.STATISTICS);
-          }}
-        />
-      </View>
-      <View style={styles.section}>
-        <Text>Blood Bags Required</Text>
-        {/* <View>
-            <Chart bloodTypes={bloodTypeData} />
-          </View> */}
-      </View>
-      <View style={styles.contentContainer}>
-        <View style={styles.section}>
-          <Text>Recipient Requests</Text>
+        <View style={{ flex: 0.5 }}>
+          <Image
+            source={require("../../assets/bloodBank.jpg")}
+            style={{ height: "100%", width: "100%" }}
+          />
         </View>
-        <View style={styles.section}>{filterData}</View>
-        <View style={styles.section}>
-          <Text>Blood Groups</Text>
-          <ScrollView
-            contentContainerStyle={styles.bloodGroupContainer}
-            horizontal={false} // Allow horizontal scrolling
-          >
-            {bloodArray.map((bloodType) => (
-              <BloodTypeButton
-                key={bloodType}
-                bloodType={bloodType}
-                focused={focusedBloodType === bloodType}
-                onFocus={(selectedBloodType) =>
-                  setFocusedBloodType(selectedBloodType)
-                }
-                onPress={() => handleBloodTypePress(bloodType)}
-              />
-            ))}
-          </ScrollView>
+        <View style={{ flex: 0.5 }}>
+          <Image
+            source={require("../../assets/conditions.jpg")}
+            style={{ height: "100%", width: "100%" }}
+          />
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    padding: 20,
+    backgroundColor: colors.red,
     flex: 1,
-    backgroundColor: colors.lightgray,
-    height: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderBottomRightRadius: 100,
+    shadowColor: colors.darkgray,
+    shadowOpacity: 50,
+    shadowOffset: 10,
   },
   headerContainer: {
     padding: 20,
