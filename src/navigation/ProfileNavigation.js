@@ -34,7 +34,6 @@
 
 // const styles = StyleSheet.create({});
 
-
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, Text, View } from "react-native";
 import React, { useContext } from "react";
@@ -56,9 +55,10 @@ const ProfileNavigation = () => {
   const { setUser } = useContext(UserContext);
   return (
     <Stack.Navigator
+      headStyle={{ backgroundColor: "red" }}
       screenOptions={{
-        headerTitle: "",
-        headerShown: true,
+        headerTitle: "Test",
+        headerShown: false,
 
         headerRight: () => {
           return (

@@ -71,6 +71,7 @@ const AppNavigation = () => {
           component={DonorRequest}
           options={{
             title: "",
+            headerShown: false,
             tabBarIcon: ({ color, size, focused }) => {
               return (
                 <View

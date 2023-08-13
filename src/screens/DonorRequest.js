@@ -11,7 +11,7 @@ const DonorRequest = ({ navigation }) => {
   const q2 = "Do you have chronic disease? (ex. heart, kidney, liver, cancer)";
   const q3 = "Did you have a surgery in the last 6 months?";
   const q4 = "Did you have blood transfusion in the last year?";
-  
+
   const [q1Answer, setQ1Answer] = useState("");
   const [q2Answer, setQ2Answer] = useState("");
   const [q3Answer, setQ3Answer] = useState("");
@@ -38,52 +38,51 @@ const DonorRequest = ({ navigation }) => {
     sendRequestFn(userAnswers);
   };
   return (
-    <View flex={1} >
-      <View flex={0.2} >
+    <View flex={1}>
+      <View flex={0.2}>
         <View
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        borderBottomRightRadius="2"
-      >
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          borderBottomRightRadius="2"
+        >
+          <View style={styles.container}>
+            <View style={styles.rectangle}>
+              <Text style={styles.title}>Donor Request Form</Text>
+              <Text style={styles.question}>{q1}</Text>
+              <TextInput
+                style={styles.answerInput}
+                value={q1Answer}
+                placeholder="Yes/No"
+                onChangeText={(text) => setQ1Answer(text)}
+              />
 
-    <View style={styles.container}>
-      <View style={styles.rectangle}>
-        <Text style={styles.title}>Donor Request Form</Text>
-        <Text style={styles.question}>{q1}</Text>
-        <TextInput
-          style={styles.answerInput}
-          value={q1Answer}
-          placeholder="Yes/No"
-          onChangeText={(text) => setQ1Answer(text)}
-        />
+              <Text style={styles.question}>{q2}</Text>
+              <TextInput
+                style={styles.answerInput}
+                value={q2Answer}
+                placeholder="Yes/No"
+                onChangeText={(text) => setQ2Answer(text)}
+              />
 
-        <Text style={styles.question}>{q2}</Text>
-        <TextInput
-          style={styles.answerInput}
-          value={q2Answer}
-          placeholder="Yes/No"
-          onChangeText={(text) => setQ2Answer(text)}
-        />
+              <Text style={styles.question}>{q3}</Text>
+              <TextInput
+                style={styles.answerInput}
+                value={q3Answer}
+                placeholder="Yes/No"
+                onChangeText={(text) => setQ3Answer(text)}
+              />
 
-        <Text style={styles.question}>{q3}</Text>
-        <TextInput
-          style={styles.answerInput}
-          value={q3Answer}
-          placeholder="Yes/No"
-          onChangeText={(text) => setQ3Answer(text)}
-        />
-
-        <Text style={styles.question}>{q4}</Text>
-        <TextInput
-          style={styles.answerInput}
-          value={q4Answer}
-          placeholder="Yes/No"
-          onChangeText={(text) => setQ4Answer(text)}
-        />
-{/* 
+              <Text style={styles.question}>{q4}</Text>
+              <TextInput
+                style={styles.answerInput}
+                value={q4Answer}
+                placeholder="Yes/No"
+                onChangeText={(text) => setQ4Answer(text)}
+              />
+              {/* 
         <Button
           title="Submit"
           onPress={handleSubmit}
@@ -91,28 +90,34 @@ const DonorRequest = ({ navigation }) => {
         >
           Submit
         </Button> */}
-<View style={ {justifyContent:"center",
-              alignItems: "center",}}>
-        <TouchableOpacity
-            style={{
-              backgroundColor: colors.red,
-              width: 200,
-              height: 50,
-              justifyContent:"center",
-              alignItems: "center",
-              marginTop:20,
-              borderRadius:8,
-            }}
-            onPress={handleSubmit}
-          >
-            <Text style={{ color: colors.white, fontWeight: "bold", fontSize:20 }}>
-              Submit
-            </Text>
-          </TouchableOpacity></View>
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: colors.red,
+                    width: 200,
+                    height: 50,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 20,
+                    borderRadius: 8,
+                  }}
+                  onPress={handleSubmit}
+                >
+                  <Text
+                    style={{
+                      color: colors.white,
+                      fontWeight: "bold",
+                      fontSize: 20,
+                    }}
+                  >
+                    Submit
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
       </View>
-    </View>
-    </View>
-    </View>
     </View>
   );
 };
@@ -122,30 +127,29 @@ export default DonorRequest;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor:colors.red,
+    backgroundColor: colors.red,
     flex: 1,
-    position:"absolute",
-    top:0,
-    left:0,
-    right:0,
-    bottom:0,
-    borderBottomRightRadius:100,
-    shadowColor:colors.darkgray,
-    shadowOpacity:50,
-    shadowOffset:10,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderBottomRightRadius: 100,
+    shadowColor: colors.darkgray,
+    shadowOpacity: 50,
+    shadowOffset: 10,
   },
   title: {
     marginTop: 20,
-    marginBottom:100,
+    marginBottom: 100,
     fontSize: 40,
-    color:colors.white,
+    color: colors.white,
     fontWeight: "bold",
-  
   },
   question: {
     fontSize: 20,
     fontWeight: "bold",
-    color:colors.red,
+    color: colors.red,
   },
   answerInput: {
     borderWidth: 1,
@@ -158,12 +162,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.red,
     borderRadius: 8,
     padding: 20,
-    paddingTop:10,
+    paddingTop: 10,
     alignItems: "center",
     color: "#fff",
     fontWeight: "bold",
   },
-
 
   rectangle: {
     width: 400,
@@ -173,5 +176,4 @@ const styles = StyleSheet.create({
     background: colors.red,
     borderBottomRightRadius: 121,
   },
-
 });

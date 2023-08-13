@@ -4,6 +4,7 @@ import React from "react";
 import ROUTES from "./routes";
 import Home from "../screens/Home";
 import Statistics from "../screens/Statistics";
+import About from "../screens/About";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ const HomeNavigation = ({ navigation }) => {
       }}
     >
       <Stack.Screen name={ROUTES.APPROUTES.HOME} component={Home} />
+      <Stack.Screen name={ROUTES.APPROUTES.ABOUT} component={About} />
       <Stack.Screen name={ROUTES.APPROUTES.STATISTICS} component={Statistics} />
     </Stack.Navigator>
   );
