@@ -5,16 +5,15 @@ import { getRecipientReqs } from "../apis/recipientRequest/recipient";
 import RecipientRequestItem from "../components/HomeRecipientRequest/RecipientRequestItem";
 import BloodTypeButton from "../components/HomeRecipientRequest/BloodTypeButton";
 import { colors } from "../utils/colors/colors";
-import Chart from "../components/Chart/Chart";
 import { BarChart } from "react-native-chart-kit";
-// import Chart from "../components/HomeRecipientRequest/Chart";
 
 const Statistics = ({ navigation }) => {
   const chartConfig = {
-    backgroundGradientFrom: colors.light_red,
+    backgroundGradientFrom: colors.white,
     backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: colors.red,
+    backgroundGradientTo: colors.light_red,
     backgroundGradientToOpacity: 0.5,
+
     color: (opacity = 1) => `rgba(203,22, 22, 1)`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
@@ -61,9 +60,12 @@ const Statistics = ({ navigation }) => {
   const handleBloodTypePress = (selectedBloodType) => {
     if (selectedBloodType !== "ALL") {
       setBloodType(selectedBloodType);
-
       setFocusedBloodType(selectedBloodType);
     }
+  };
+
+  const handleDonate = (requestData) => {
+    console.log(requestData);
   };
 
   const filterData = recipientRequestData
@@ -78,20 +80,18 @@ const Statistics = ({ navigation }) => {
         <RecipientRequestItem
           key={recipientRequest.serial_no}
           request={recipientRequest}
+          onPress={() => handleDonate(recipientRequest)}
         />
       );
     });
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text>Home</Text>
-      </View>
+      <View style={styles.headerContainer}></View>
       <View style={styles.section}>
-        <Text>Blood Bags Required</Text>
-        {/* <View>
-          <Chart bloodTypes={bloodTypeData} />
-        </View> */}
+        <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+          Blood Units Required
+        </Text>
         <BarChart
           chartConfig={chartConfig}
           data={getDataForBarChat()}
@@ -101,15 +101,13 @@ const Statistics = ({ navigation }) => {
         />
       </View>
       <View style={styles.contentContainer}>
-        <View style={styles.section}>
-          <Text>Recipient Requests</Text>
-        </View>
-        <View style={styles.section}>{filterData}</View>
-        <View style={styles.section}>
-          <Text>Blood Groups</Text>
+        <View style={styles.bloodGroupSection}>
+          <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+            Find Blood Groups
+          </Text>
           <ScrollView
             contentContainerStyle={styles.bloodGroupContainer}
-            horizontal={false} // Allow horizontal scrolling
+            horizontal={false}
           >
             {bloodArray.map((bloodType) => (
               <BloodTypeButton
@@ -126,6 +124,14 @@ const Statistics = ({ navigation }) => {
             ))}
           </ScrollView>
         </View>
+        <ScrollView style={styles.recipientRequestsSection}>
+          <View style={styles.section}>
+            <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+              Recipient Requests
+            </Text>
+          </View>
+          <View style={styles.section}>{filterData}</View>
+        </ScrollView>
       </View>
     </ScrollView>
   );
@@ -134,7 +140,7 @@ const Statistics = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.lightgray,
+    backgroundColor: colors.light,
     height: "100%",
   },
   headerContainer: {
@@ -148,10 +154,16 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     flexDirection: "column",
+    padding: 20,
   },
   section: {
     flex: 1,
-    padding: 20,
+    // padding: 20,
+  },
+  recipientRequestsSection: {
+    flex: 1,
+    marginTop: 20,
+    flexGrow: 1, // This allows the Recipient Requests section to take remaining space
   },
   bloodGroupContainer: {
     flexDirection: "row",

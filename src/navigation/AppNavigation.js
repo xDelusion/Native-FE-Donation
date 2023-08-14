@@ -11,6 +11,7 @@ import StatisticNavigation from "./StatisticNavigation";
 import { useContext } from "react";
 import { View, Text } from "react-native";
 import HomeNavigation from "./HomeNavigation";
+// import RecipientNavigation from "./RecipientNavigation";
 import React from "react";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -51,6 +52,7 @@ const AppNavigation = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name={ROUTES.APPROUTES.STATISTICS}
         component={StatisticNavigation}
@@ -66,6 +68,7 @@ const AppNavigation = () => {
           ),
         }}
       />
+
       {user ? (
         <Tab.Screen
           name={ROUTES.APPROUTES.DR}
