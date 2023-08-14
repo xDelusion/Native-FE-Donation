@@ -18,6 +18,7 @@ import UserContext from "../context/UserContext";
 import ROUTES from "../navigation/routes";
 import { getAllPaci } from "../apis/paci/paci";
 import moment from "moment/moment";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Register = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState({
@@ -107,6 +108,17 @@ const Register = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View>
+        <View style={styles.edit}>
+          <Text
+            style={{
+              fontSize: 50,
+              color: colors.red,
+              fontWeight: "bold",
+            }}
+          >
+            Register
+          </Text>
+        </View>
         <Text style={styles.text}>Civil ID</Text>
         <TextInput
           style={styles.input}
@@ -145,14 +157,13 @@ const Register = ({ navigation }) => {
         />
       </View>
 
-      <Text style={styles.text}>blood type</Text>
-      <TextInput
-        style={styles.input}
-        value={userInfo.bloodType}
-        placeholder="Blood Type"
-      />
-
       <View>
+        <Text style={styles.text}>Blood type</Text>
+        <TextInput
+          style={styles.input}
+          value={userInfo.bloodType}
+          placeholder="Blood Type"
+        />
         <Text style={styles.text}>DOB</Text>
         <TextInput
           style={styles.input}
@@ -178,14 +189,16 @@ const Register = ({ navigation }) => {
           )}
         </Text>
       </View>
-
-      <Button
-        title="Register"
-        onPress={() => {
-          if (passwordError === "") registerFn();
-          console.log(passwordError);
-        }}
-      />
+      <TouchableOpacity style={styles.register}>
+        <Button
+          color={colors.white}
+          title="Register"
+          onPress={() => {
+            if (passwordError === "") registerFn();
+            console.log(passwordError);
+          }}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -200,6 +213,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.white,
   },
+  edit: {
+    padding: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  register: {
+    backgroundColor: colors.red,
+    width: 150,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+    marginTop: 20,
+    borderRadius: 8,
+  },
+
   scrollContainer: {
     // flex: 1,
     padding: 10,
@@ -220,9 +249,9 @@ const styles = StyleSheet.create({
     width: 300,
   },
   text: {
-    color: "white",
+    color: "black",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "normal",
   },
   imageBackground: {
     flex: 1,
