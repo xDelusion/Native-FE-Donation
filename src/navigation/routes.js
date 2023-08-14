@@ -14,10 +14,9 @@ const ROUTES = {
 
     STATISTICS: "Statistic",
     STATISTICS_NAV: "StatisticNavigation",
-
+    RECIPIENT: "Recipient",
     ABOUT: "About",
-    ABOUT_NAV:"AboutNavigation",
-    
+    ABOUT_NAV: "AboutNavigation",
 
     PROFILE_NAV: "ProfileNavigation",
     // DONOR_REQUEST: "DonorRequestNavigation",j

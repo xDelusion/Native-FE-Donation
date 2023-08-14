@@ -3,8 +3,36 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { colors } from "../../utils/colors/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
-
+import moment from "moment/moment";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "../../apis/profile";
+import { useContext } from "react";
+import { useNavigation } from "@react-navigation/native";
+import UserContext from "../../context/UserContext";
+import ROUTES from "../../navigation/routes";
 const RecipientRequestItem = ({ request, onPressDonate }) => {
+  const navigation = useNavigation();
+  const { setUser } = useContext(UserContext);
+  const [matching, setMatching] = useState(false);
+  const {
+    data: dataProfile,
+    isFetching,
+    refetch,
+  } = useQuery({
+    queryKey: ["profile1"],
+    queryFn: () => getProfile(),
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+  console.log(dataProfile);
+
+  const bloodMatch = dataProfile?.matchingTypes?.find((match) => {
+    return match.toLowerCase() === request.bloodType.toLowerCase();
+  });
+  console.log(` blood match =${bloodMatch}`);
+
   const bloodBagIcons = Array.from(
     { length: request.noOfBloodBags },
     (_, index) => (
@@ -17,6 +45,21 @@ const RecipientRequestItem = ({ request, onPressDonate }) => {
     )
   );
 
+  const donateHandler = () => {
+    if (!dataProfile.isDonor) {
+      navigation.navigate(ROUTES.APPROUTES.DR);
+    } else if (dataProfile.lastDonation) {
+      const lastDonationDate = moment(dataProfile.lastDonation);
+      const nextDonationDate = lastDonationDate.add(3, "months");
+      const now = moment();
+      if (nextDonationDate.isAfter(now)) {
+        navigation.navigate(ROUTES.APPROUTES.DR);
+      } else {
+        navigation.navigate(ROUTES.APPROUTES.RECIPIENT);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
@@ -24,7 +67,7 @@ const RecipientRequestItem = ({ request, onPressDonate }) => {
         <Text>{request.bloodType}</Text>
       </View>
       <View style={styles.infoContainer}>
-        <Text>{request.createdAt}</Text>
+        <Text>{moment(request.createdAt).format("L")}</Text>
       </View>
       <View style={styles.infoContainer}>
         <Text>{request.noOfBloodBags}</Text>
@@ -33,9 +76,15 @@ const RecipientRequestItem = ({ request, onPressDonate }) => {
             {bloodBagIcons}
           </ScrollView>
         </View>
-        <TouchableOpacity style={styles.donateButton} onPress={onPressDonate}>
-          <Text>Donate</Text>
-        </TouchableOpacity>
+        {bloodMatch ? (
+          <TouchableOpacity style={styles.donateButton} onPress={donateHandler}>
+            <Text>Donate</Text>
+          </TouchableOpacity>
+        ) : (
+          <View>
+            <Text>Not Matching</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -45,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
     padding: 10,
-    backgroundColor: colors.lightgray,
+    backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.darkgray,
     borderRadius: 8,

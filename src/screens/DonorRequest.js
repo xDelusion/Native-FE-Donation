@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { useMutation } from "@tanstack/react-query";
 import { sendRequest } from "../apis/donorRequest";
 import { shadow } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { colors } from "../utils/colors/colors";
-
+import ROUTES from "../navigation/routes";
 const DonorRequest = ({ navigation }) => {
   const q1 = "Has it been 3 months since the last time you donate?";
   const q2 = "Do you have chronic disease? (ex. heart, kidney, liver, cancer)";
@@ -20,6 +20,7 @@ const DonorRequest = ({ navigation }) => {
   const { mutate: sendRequestFn, error } = useMutation({
     mutationFn: (d) => sendRequest(d),
     onSuccess: (data) => {
+      Alert.alert("Thank you", "Your request has been submitted successfully!");
       navigation.navigate(ROUTES.APPROUTES.HOME);
     },
     onError: (error) => {

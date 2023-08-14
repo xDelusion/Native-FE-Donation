@@ -50,21 +50,7 @@ const AppNavigation = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name={ROUTES.APPROUTES.STATISTICS_NAV}
-        component={StatisticNavigation}
-        options={{
-          title: "",
-          headerShown: false,
-          tabBarIcon: ({ color, size, focused }) => (
-            <AntDesign
-              name="areachart"
-              size={focused ? 34 : 24}
-              color={focused ? colors.red : colors.lightgray}
-            />
-          ),
-        }}
-      /> */}
+
       {user ? (
         <Tab.Screen
           name={ROUTES.APPROUTES.DR}

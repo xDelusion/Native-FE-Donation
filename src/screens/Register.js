@@ -8,8 +8,6 @@ import {
   Image,
   Pressable,
 } from "react-native";
-
-import { Picker } from "@react-native-picker/picker";
 import React, { useState, useContext } from "react";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
