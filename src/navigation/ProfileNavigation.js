@@ -57,8 +57,8 @@ const ProfileNavigation = () => {
     <Stack.Navigator
       headStyle={{ backgroundColor: "red" }}
       screenOptions={{
-        headerTitle: "Test",
-        // headerShown: false,
+        // headerTitle: "Test",
+        headerShown: false,
 
         headerRight: () => {
           return (

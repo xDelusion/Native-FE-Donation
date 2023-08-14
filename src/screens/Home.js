@@ -54,7 +54,7 @@ const Home = ({ navigation }) => {
             style={{ height: "100%", width: "100%", borderRadius: 40 }}
           />
         </View>
-        <View style={{ flex: 0.6, paddingTop: 10 }}>
+        <View style={{ flex: 0.6, paddingTop: 10, margin: 10 }}>
           <Image
             source={require("../../assets/conditions.jpg")}
             style={{ height: "100%", width: "100%" }}

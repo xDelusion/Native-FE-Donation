@@ -17,7 +17,7 @@ const screenOptions = {
     left: 0,
     elevation: 0,
     height: 60,
-    backgroundColor: colors.grey,
+    color: colors.red,
   },
 };
 const Stack = createStackNavigator();
@@ -25,7 +25,11 @@ const Stack = createStackNavigator();
 const AuthNavigation = () => {
   return (
     <Stack.Navigator
-    // screenOptions={{ headerTitle: "Test", headerShown: false }}
+      headStyle={{ backgroundColor: "red" }}
+      screenOptions={{
+        // headerTitle: "Test",
+        headerShown: true,
+      }}
     >
       <Stack.Screen name={ROUTES.AUTHROUTES.LOGIN} component={Login} />
       <Stack.Screen name={ROUTES.AUTHROUTES.REGISTER} component={Register} />
