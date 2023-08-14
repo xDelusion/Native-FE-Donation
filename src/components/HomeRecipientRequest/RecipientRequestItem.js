@@ -5,15 +5,18 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import moment from "moment/moment";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProfile } from "../../apis/profile";
 import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import UserContext from "../../context/UserContext";
 import ROUTES from "../../navigation/routes";
+import { updateDonorRequest } from "../../apis/donorRequest";
 
 const RecipientRequestItem = ({ request, onDonate }) => {
-  const { recipient_id } = request;
+  const { _id: recipient_id } = request;
+
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
 
   const navigation = useNavigation();
   const { setUser } = useContext(UserContext);
@@ -31,17 +34,19 @@ const RecipientRequestItem = ({ request, onDonate }) => {
   });
   console.log(dataProfile);
 
-  // const { mutate: registerFn, error } = useMutation({
-  //   mutationFn: () => updateDonorRequest(recipient_id, dataProfile._id),
-  //   onSuccess: (data) => {
-  //     console.log(` register = ${data}`);
+  const { mutate: registerFn, error } = useMutation({
+    mutationFn: () => updateDonorRequest(recipient_id),
+    onSuccess: (data) => {
+      console.log(` register = ${data}`);
 
-  //     // navigation.navigate(ROUTES.APPROUTES.HOME);
-  //   },
-  //   onError: (error) => {
-  //     console.log(error);
-  //   },
-  // });
+      Alert.alert(
+        "Thank you for applying to donate, we will contact you soon to confirm your donation"
+      );
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const bloodMatch = dataProfile?.matchingTypes?.find((match) => {
     return match.toLowerCase() === request.bloodType.toLowerCase();
@@ -59,18 +64,31 @@ const RecipientRequestItem = ({ request, onDonate }) => {
       />
     )
   );
+  //checks if the user has submitted a blood donation request
+  //if not submitted, then the navigation with take him to the blood donation request screen
+  //if submitted, then the navigation will take him to the blood donation request details screen
+  //if the last donation date is more than 3 months then the navigation will take him to the blood donation request screen
 
-  // const donateHandler = () => {
-  // if (!dataProfile.isDonor) {
-  // navigation.navigate(ROUTES.APPROUTES.DR);
-  // } else if (dataProfile.lastDonation) {
-  //   const lastDonationDate = moment(dataProfile.lastDonation);
-  //   const nextDonationDate = lastDonationDate.add(3, "months");
-  //   const now = moment();
-  //   if (nextDonationDate.isAfter(now)) {
-  //     navigation.navigate(ROUTES.APPROUTES.DR);
-  //   } else {
-  const donateHandler = () => {};
+  const donateHandler = () => {
+    console.log("HELLO");
+    if (!dataProfile.isDonor && !dataProfile.donor_req_id) {
+      console.log("2");
+      return navigation.navigate(ROUTES.APPROUTES.DR);
+    } else if (dataProfile.lastDonation) {
+      console.log("3");
+      const lastDonationDate = moment(dataProfile.lastDonation);
+      const nextDonationDate = lastDonationDate.add(3, "months");
+      const now = moment();
+      if (nextDonationDate.isAfter(now)) {
+        return navigation.navigate(ROUTES.APPROUTES.DR);
+      }
+      console.log("I AM HERE ");
+    }
+
+    if (dataProfile.donor_req_id) {
+      registerFn();
+    }
+  };
 
   return (
     <View style={styles.container}>

@@ -8,9 +8,7 @@ const sendRequest = async (userAnswers) => {
 };
 
 const updateDonorRequest = async (recipient_id, donor_id) => {
-  const res = await instance.put(`/donor/${recipient_id}`, {
-    donor_id,
-  });
+  const res = await instance.put(`/donor/${recipient_id}`);
   return res.data;
 };
 
