@@ -31,7 +31,7 @@ const Profile = () => {
   console.log(dataProfile);
   return (
     <View flex={1}>
-      <View flex={0.2}>
+      <View flex={0.1}>
         <View
           position="absolute"
           top={0}
@@ -62,7 +62,7 @@ const Profile = () => {
               )}
             </View>
             <View>
-              <Text style={styles.userName}>Name:</Text>
+              {/* <Text style={styles.userName}>Name:</Text> */}
               <Text style={styles.userName}>{`${dataProfile?.name}`}</Text>
 
               <View style={styles.detailsContainer}>
@@ -199,19 +199,21 @@ const styles = StyleSheet.create({
     width: 130,
     height: 130,
     borderRadius: 75,
-    marginBottom: 15,
-    paddingTop: 5,
+    borderColor: colors.white,
+    borderWidth: 5,
+    marginBottom: 5,
+    paddingTop: 15,
   },
   userName: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    marginTop: 10,
-    marginBottom: 5,
+    marginTop: 25,
+    marginBottom: 10,
     color: colors.white,
   },
 
   detailsContainer: {
-    paddingTop: 100,
+    paddingTop: 30,
     width: "100%",
   },
   label: {

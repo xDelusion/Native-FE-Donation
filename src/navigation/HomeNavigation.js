@@ -4,13 +4,8 @@ import React from "react";
 import ROUTES from "./routes";
 import Home from "../screens/Home";
 
-import { Link } from "@react-navigation/native";
-import { Button } from "react-native-paper";
-import About from "../screens/About";
-
 import Statistics from "../screens/Statistics";
 import About from "../screens/About";
-
 
 const Stack = createStackNavigator();
 
@@ -62,7 +57,6 @@ const HomeNavigation = ({ navigation }) => {
           },
         }}
       /> */}
-
     </Stack.Navigator>
   );
 };
