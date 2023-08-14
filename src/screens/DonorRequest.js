@@ -40,11 +40,8 @@ const DonorRequest = ({ navigation }) => {
   };
   return (
     <View flex={1}>
-      <View flex={0.2}>
+      <View flex={0.1}>
         <View
-
-
-
           position="absolute"
           top={0}
           left={0}
@@ -62,7 +59,6 @@ const DonorRequest = ({ navigation }) => {
                 placeholder="Yes/No"
                 onChangeText={(text) => setQ1Answer(text)}
               />
-
 
               <Text style={styles.question}>{q2}</Text>
               <TextInput
@@ -145,8 +141,8 @@ const styles = StyleSheet.create({
     shadowOffset: 10,
   },
   title: {
-    marginTop: 20,
-    marginBottom: 100,
+    marginTop: 5,
+    marginBottom: 30,
     fontSize: 40,
     color: colors.white,
     fontWeight: "bold",
@@ -159,6 +155,7 @@ const styles = StyleSheet.create({
   answerInput: {
     borderWidth: 1,
     borderColor: colors.red,
+    width: "100%",
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
