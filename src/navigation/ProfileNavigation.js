@@ -58,7 +58,7 @@ const ProfileNavigation = () => {
       headStyle={{ backgroundColor: "red" }}
       screenOptions={{
         headerTitle: "Test",
-        headerShown: false,
+        // headerShown: false,
 
         headerRight: () => {
           return (

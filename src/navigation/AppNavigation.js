@@ -11,6 +11,7 @@ import StatisticNavigation from "./StatisticNavigation";
 import { useContext } from "react";
 import { View, Text } from "react-native";
 import HomeNavigation from "./HomeNavigation";
+// import RecipientNavigation from "./RecipientNavigation";
 import React from "react";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -50,21 +51,7 @@ const AppNavigation = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name={ROUTES.APPROUTES.STATISTICS_NAV}
-        component={StatisticNavigation}
-        options={{
-          title: "",
-          headerShown: false,
-          tabBarIcon: ({ color, size, focused }) => (
-            <AntDesign
-              name="areachart"
-              size={focused ? 34 : 24}
-              color={focused ? colors.red : colors.lightgray}
-            />
-          ),
-        }}
-      /> */}
+
       {user ? (
         <Tab.Screen
           name={ROUTES.APPROUTES.DR}
