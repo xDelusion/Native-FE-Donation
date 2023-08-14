@@ -22,6 +22,7 @@ import ROUTES from "../navigation/routes";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 const Home = ({ navigation }) => {
+
   return (
     <View
       flex={1}
@@ -66,7 +67,8 @@ const Home = ({ navigation }) => {
 
         </View>
       </ScrollView>
-    </View>
+
+
   );
 };
 
