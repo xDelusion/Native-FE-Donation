@@ -7,11 +7,16 @@ import {
   Button,
   Image,
 } from "react-native";
+
+
+import { Link } from "@react-navigation/native";
+
 import { useQuery } from "@tanstack/react-query";
 import { getRecipientReqs } from "../apis/recipientRequest/recipient";
 import RecipientRequestItem from "../components/HomeRecipientRequest/RecipientRequestItem";
 import BloodTypeButton from "../components/HomeRecipientRequest/BloodTypeButton";
 import { colors } from "../utils/colors/colors";
+
 import ROUTES from "../navigation/routes";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -20,12 +25,10 @@ const Home = ({ navigation }) => {
   return (
     <View
       flex={1}
-      style={{
-        alignItems: "stretch",
-        justifyContent: "space-between",
-      }}
+      style={{ alignItems: "stretch", justifyContent: "space-between" }}
     >
-      <View flex={0.25}>
+      <View flex={0.2}>
+
         <View
           position="absolute"
           top={0}
@@ -35,6 +38,7 @@ const Home = ({ navigation }) => {
           borderBottomRightRadius="2"
         >
           <View style={styles.container}>
+
             <Image
               source={require("../../assets/Life1-removebg-preview.png")}
               style={{ width: 200, height: 150 }}
@@ -59,6 +63,7 @@ const Home = ({ navigation }) => {
             source={require("../../assets/conditions.jpg")}
             style={{ height: "100%", width: "100%" }}
           />
+
         </View>
       </ScrollView>
     </View>
@@ -67,6 +72,8 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+
+
     padding: 20,
     backgroundColor: colors.red,
     flex: 1,
@@ -81,25 +88,19 @@ const styles = StyleSheet.create({
     shadowOffset: 10,
   },
   headerContainer: {
+
     padding: 20,
     backgroundColor: colors.red,
+    flex: 1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     borderBottomRightRadius: 100,
     shadowColor: colors.darkgray,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 10 },
-  },
-  contentContainer: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  section: {
-    flex: 1,
-    padding: 20,
-  },
-  bloodGroupContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
+    shadowOpacity: 50,
+    shadowOffset: 10,
   },
 });
 

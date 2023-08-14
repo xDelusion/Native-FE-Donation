@@ -42,6 +42,9 @@ const DonorRequest = ({ navigation }) => {
     <View flex={1}>
       <View flex={0.2}>
         <View
+
+
+
           position="absolute"
           top={0}
           left={0}
@@ -59,6 +62,7 @@ const DonorRequest = ({ navigation }) => {
                 placeholder="Yes/No"
                 onChangeText={(text) => setQ1Answer(text)}
               />
+
 
               <Text style={styles.question}>{q2}</Text>
               <TextInput
