@@ -14,6 +14,7 @@ import HomeNavigation from "./HomeNavigation";
 import React from "react";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
+import About from "../screens/About";
 
 const screenOptions = {
   tabBarShowLabel: false,
@@ -50,8 +51,8 @@ const AppNavigation = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name={ROUTES.APPROUTES.STATISTICS_NAV}
+      <Tab.Screen
+        name={ROUTES.APPROUTES.STATISTICS}
         component={StatisticNavigation}
         options={{
           title: "",
@@ -64,7 +65,7 @@ const AppNavigation = () => {
             />
           ),
         }}
-      /> */}
+      />
       {user ? (
         <Tab.Screen
           name={ROUTES.APPROUTES.DR}
@@ -110,6 +111,21 @@ const AppNavigation = () => {
           }}
         />
       ) : null}
+      <Tab.Screen
+        name={ROUTES.APPROUTES.ABOUT}
+        component={About}
+        options={{
+          title: "",
+          headerShown: false,
+          tabBarIcon: ({ color, size, focused }) => (
+            <AntDesign
+              name="infocirlceo"
+              size={focused ? 34 : 24}
+              color={focused ? colors.red : colors.lightgray}
+            />
+          ),
+        }}
+      />
       {user ? (
         <Tab.Screen
           name={ROUTES.APPROUTES.PROFILE_NAV}

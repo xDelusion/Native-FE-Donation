@@ -15,6 +15,7 @@ import { colors } from "../utils/colors/colors";
 import ROUTES from "../navigation/routes";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { AntDesign } from "@expo/vector-icons";
 const Home = ({ navigation }) => {
   return (
     <View
@@ -24,7 +25,7 @@ const Home = ({ navigation }) => {
         justifyContent: "space-between",
       }}
     >
-      <View flex={0.2}>
+      <View flex={0.25}>
         <View
           position="absolute"
           top={0}
@@ -34,36 +35,26 @@ const Home = ({ navigation }) => {
           borderBottomRightRadius="2"
         >
           <View style={styles.container}>
-            {/* <Link
-              text="About"
-              onPress={() => navigation.navigate(ROUTES.APPROUTES.ABOUT)}
-            /> */}
-            <Button
-              title="About"
-              onPress={() => navigation.navigate(ROUTES.APPROUTES.ABOUT)}
-            />
-
-            <Button
-              title="Statistics"
-              onPress={() => {
-                navigation.navigate(ROUTES.APPROUTES.STATISTICS);
-              }}
+            <Image
+              source={require("../../assets/Life1-removebg-preview.png")}
+              style={{ width: 200, height: 150 }}
             />
           </View>
         </View>
       </View>
+
       <ScrollView
         contentContainerStyle={{
           flex: 0.7,
         }}
       >
-        <View style={{ flex: 0.5, paddingTop: 10 }}>
+        <View style={{ flex: 0.45, paddingTop: 10 }}>
           <Image
             source={require("../../assets/bloodBank.jpg")}
-            style={{ height: "100%", width: "100%" }}
+            style={{ height: "100%", width: "100%", borderRadius: 40 }}
           />
         </View>
-        <View style={{ flex: 0.5 }}>
+        <View style={{ flex: 0.6, paddingTop: 10 }}>
           <Image
             source={require("../../assets/conditions.jpg")}
             style={{ height: "100%", width: "100%" }}
