@@ -63,12 +63,14 @@ const Login = ({ navigation }) => {
               onPress={() => navigation.navigate(ROUTES.AUTHROUTES.REGISTER)}
             />
           </View>
-          <TouchableOpacity
-            style={styles.loginButton}
-            onPress={() => loginFn()}
-          >
-            <Text style={styles.loginButtonText}>Login</Text>
-          </TouchableOpacity>
+          <View style={styles.center}>
+            <TouchableOpacity
+              style={styles.loginButton}
+              onPress={() => loginFn()}
+            >
+              <Text style={styles.loginButtonText}>Login</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         {isLoading && (
           <View style={styles.loadingOverlay}>
@@ -93,10 +95,18 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: colors.red,
-    width: 200,
+    width: 150,
     height: 50,
     justifyContent: "center",
     alignItems: "center",
+    alignContent: "center",
+    marginTop: 20,
+    borderRadius: 8,
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
   },
   loginButtonText: {
     color: colors.white,

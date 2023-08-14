@@ -8,18 +8,19 @@ const ROUTES = {
   },
   APPROUTES: {
     EDITPROFILE: "EditProfile",
+
     HOME: "Home",
-    PROFILE: "Profile",
     HOME_NAV: "HomeNavigation",
+
+    PROFILE: "Profile",
+    PROFILE_NAV: "ProfileNavigation",
 
     STATISTICS: "Statistic",
     STATISTICS_NAV: "StatisticNavigation",
 
     ABOUT: "About",
-   
-    
 
-    PROFILE_NAV: "ProfileNavigation",
+
     // DONOR_REQUEST: "DonorRequestNavigation",j
     // PROFILE_NAV: "ProfileNavigation",
 
