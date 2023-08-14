@@ -11,7 +11,10 @@ import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import UserContext from "../../context/UserContext";
 import ROUTES from "../../navigation/routes";
-const RecipientRequestItem = ({ request, onPressDonate }) => {
+
+const RecipientRequestItem = ({ request, onDonate }) => {
+  const { recipient_id } = request;
+
   const navigation = useNavigation();
   const { setUser } = useContext(UserContext);
   const [matching, setMatching] = useState(false);
@@ -27,6 +30,18 @@ const RecipientRequestItem = ({ request, onPressDonate }) => {
     },
   });
   console.log(dataProfile);
+
+  // const { mutate: registerFn, error } = useMutation({
+  //   mutationFn: () => updateDonorRequest(recipient_id, dataProfile._id),
+  //   onSuccess: (data) => {
+  //     console.log(` register = ${data}`);
+
+  //     // navigation.navigate(ROUTES.APPROUTES.HOME);
+  //   },
+  //   onError: (error) => {
+  //     console.log(error);
+  //   },
+  // });
 
   const bloodMatch = dataProfile?.matchingTypes?.find((match) => {
     return match.toLowerCase() === request.bloodType.toLowerCase();
@@ -45,20 +60,17 @@ const RecipientRequestItem = ({ request, onPressDonate }) => {
     )
   );
 
-  const donateHandler = () => {
-    if (!dataProfile.isDonor) {
-      navigation.navigate(ROUTES.APPROUTES.DR);
-    } else if (dataProfile.lastDonation) {
-      const lastDonationDate = moment(dataProfile.lastDonation);
-      const nextDonationDate = lastDonationDate.add(3, "months");
-      const now = moment();
-      if (nextDonationDate.isAfter(now)) {
-        navigation.navigate(ROUTES.APPROUTES.DR);
-      } else {
-        navigation.navigate(ROUTES.APPROUTES.RECIPIENT);
-      }
-    }
-  };
+  // const donateHandler = () => {
+  // if (!dataProfile.isDonor) {
+  // navigation.navigate(ROUTES.APPROUTES.DR);
+  // } else if (dataProfile.lastDonation) {
+  //   const lastDonationDate = moment(dataProfile.lastDonation);
+  //   const nextDonationDate = lastDonationDate.add(3, "months");
+  //   const now = moment();
+  //   if (nextDonationDate.isAfter(now)) {
+  //     navigation.navigate(ROUTES.APPROUTES.DR);
+  //   } else {
+  const donateHandler = () => {};
 
   return (
     <View style={styles.container}>

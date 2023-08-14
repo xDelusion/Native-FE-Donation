@@ -13,7 +13,6 @@ const StatisticNavigation = ({ navigation }) => {
       screenOptions={{ headerTitle: "Test", headerShown: false }}
     >
       <Stack.Screen name={ROUTES.APPROUTES.STATISTICS} component={Statistics} />
-      <Stack.Screen name={ROUTES.APPROUTES.RECIPIENT} component={Recipient} />
     </Stack.Navigator>
   );
 };

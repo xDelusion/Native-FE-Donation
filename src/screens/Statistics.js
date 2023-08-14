@@ -5,9 +5,7 @@ import { getRecipientReqs } from "../apis/recipientRequest/recipient";
 import RecipientRequestItem from "../components/HomeRecipientRequest/RecipientRequestItem";
 import BloodTypeButton from "../components/HomeRecipientRequest/BloodTypeButton";
 import { colors } from "../utils/colors/colors";
-// import Chart from "../components/Chart/Chart";
 import { BarChart } from "react-native-chart-kit";
-// import Chart from "../components/HomeRecipientRequest/Chart";
 
 const Statistics = ({ navigation }) => {
   const chartConfig = {
@@ -66,6 +64,10 @@ const Statistics = ({ navigation }) => {
     }
   };
 
+  const handleDonate = (requestData) => {
+    console.log(requestData);
+  };
+
   const filterData = recipientRequestData
     ?.filter((request) => {
       if (focusedBloodType === "ALL") {
@@ -78,6 +80,7 @@ const Statistics = ({ navigation }) => {
         <RecipientRequestItem
           key={recipientRequest.serial_no}
           request={recipientRequest}
+          onPress={() => handleDonate(recipientRequest)}
         />
       );
     });
