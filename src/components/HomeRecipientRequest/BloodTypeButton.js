@@ -1,54 +1,66 @@
 import React from "react";
-import { ScrollView, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { colors } from "../../utils/colors/colors";
-
+import { View } from "react-native";
 const BloodTypeButton = ({ bloodType, isFocused, onFocus, onPress }) => {
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <TouchableOpacity
-        onPress={() => {
-          onFocus(bloodType);
-          onPress();
-        }}
+    <TouchableOpacity
+      onPress={() => {
+        onFocus(bloodType);
+        onPress();
+      }}
+      style={styles.radioButtonContainer}
+    >
+      <Text
         style={[
-          styles.mobileButton,
+          styles.radioButtonLabel,
           {
-            backgroundColor: isFocused ? colors.red : colors.white,
-            borderColor: colors.darkgray,
-            borderWidth: 2,
+            color: isFocused ? colors.red : colors.black,
           },
         ]}
       >
-        <Text
-          style={[
-            styles.buttonText,
-            {
-              color: isFocused ? colors.white : colors.red,
-            },
-          ]}
-        >
-          {bloodType}
-        </Text>
-      </TouchableOpacity>
-    </ScrollView>
+        {bloodType}
+      </Text>
+      <View
+        style={[
+          styles.radioButton,
+          {
+            backgroundColor: isFocused ? colors.red : colors.white,
+            borderColor: colors.darkgray,
+          },
+        ]}
+      >
+        {isFocused && <View style={styles.innerRadioButton} />}
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  mobileButton: {
-    minWidth: 35, // Set a minimum width for buttons
-    height: 35,
-    backgroundColor: colors.red,
-    borderRadius: 8,
-    justifyContent: "center",
+  radioButtonContainer: {
+    flexDirection: "row",
     alignItems: "center",
     marginVertical: 5,
     marginHorizontal: 5,
   },
-  buttonText: {
-    fontWeight: "bold",
+  radioButtonLabel: {
+    marginLeft: 10,
     fontSize: 14,
-    color: colors.white,
+  },
+  radioButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 10,
+  },
+  innerRadioButton: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: colors.red,
   },
 });
 
