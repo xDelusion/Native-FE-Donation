@@ -52,6 +52,7 @@ const DonorRequest = ({ navigation }) => {
           <View style={styles.container}>
             <View style={styles.rectangle}>
               <Text style={styles.title}>Donor Request Form</Text>
+
               <Text style={styles.question}>{q1}</Text>
               <TextInput
                 style={styles.answerInput}
