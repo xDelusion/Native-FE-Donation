@@ -49,7 +49,7 @@ const RecipientRequestItem = ({ request, onDonate }) => {
   });
 
   const bloodMatch = dataProfile?.matchingTypes?.find((match) => {
-    return match.toLowerCase() === request.bloodType.toLowerCase();
+    return match?.toLowerCase() === request.bloodType?.toLowerCase();
   });
   console.log(` blood match =${bloodMatch}`);
 
@@ -71,23 +71,23 @@ const RecipientRequestItem = ({ request, onDonate }) => {
 
   const donateHandler = () => {
     console.log("HELLO");
-    if (!dataProfile.isDonor && !dataProfile.donor_req_id) {
+    if (!dataProfile?.donor_req_id?.QA) {
       console.log("2");
       return navigation.navigate(ROUTES.APPROUTES.DR);
-    } else if (dataProfile.lastDonation) {
-      console.log("3");
-      const lastDonationDate = moment(dataProfile.lastDonation);
-      const nextDonationDate = lastDonationDate.add(3, "months");
-      const now = moment();
-      if (nextDonationDate.isAfter(now)) {
-        return navigation.navigate(ROUTES.APPROUTES.DR);
-      }
-      console.log("I AM HERE ");
-    }
-
-    if (dataProfile.donor_req_id) {
+    } else {
       registerFn();
     }
+
+    // else if (dataProfile.lastDonation) {
+    //   console.log("3");
+    //   const lastDonationDate = moment(dataProfile.lastDonation);
+    //   const nextDonationDate = lastDonationDate.add(3, "months");
+    //   const now = moment();
+    //   if (nextDonationDate.isAfter(now)) {
+    //     return navigation.navigate(ROUTES.APPROUTES.DR);
+    //   }
+    //   console.log("I AM HERE ");
+    // }
   };
 
   return (
