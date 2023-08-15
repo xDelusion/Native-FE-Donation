@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   headerContainer: {
+    flex: 0.2,
     padding: 20,
     backgroundColor: colors.red,
     borderBottomRightRadius: 100,

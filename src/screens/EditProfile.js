@@ -105,9 +105,9 @@ const EditProfile = ({ route }) => {
   `
   );
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "height" : "height"}
+    <View
+      flex={1}
+      style={{ alignItems: "stretch", justifyContent: "space-between" }}
     >
       <View flex={0.1}>
         <View
@@ -119,40 +119,8 @@ const EditProfile = ({ route }) => {
           borderBottomRightRadius="2"
         >
           <View style={styles.container}>
-            {/* <View
-              style={{
-                flex: 1,
-                justifyContent: "right",
-                alignItems: "flex-end",
-                paddingButtom: 10,
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  position: "absolute",
-                  backgroundColor: colors.white,
-                  paddingHorizontal: 22,
-                  height: "100%",
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              /> */}
-
-            {/* <View
-              style={{
-                marginHorizontal: 12,
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "flex-start",
-                marginBottom: 20,
-                marginVertical: 30,
-                flex: 1,
-                padding: 30,
-              }}
-            ></View> */}
-            <View style={{ paddingTop: 100, marginTop: 30 }}>
+            <Text style={styles.text}>Edit profile</Text>
+            <View style={{ paddingTop: 70, marginTop: 30 }}>
               <Pressable
                 onPress={pickImage}
                 style={{
@@ -264,9 +232,7 @@ const EditProfile = ({ route }) => {
           </View>
         </View>
       </View>
-
-      {/* </View> */}
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 
@@ -311,5 +277,10 @@ const styles = StyleSheet.create({
     shadowColor: colors.darkgray,
     shadowOpacity: 50,
     shadowOffset: 10,
+  },
+  text: {
+    fontSize: 35,
+    color: colors.white,
+    fontWeight: "bold",
   },
 });

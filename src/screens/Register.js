@@ -193,8 +193,8 @@ const Register = ({ navigation }) => {
       <TouchableOpacity
         style={styles.register}
         onPress={() => {
-          if (passwordError === "") registerFn();
-          console.log(passwordError);
+          registerFn();
+          // console.log(passwordError);
         }}
       >
         <Button color={colors.white} title="Register" />
