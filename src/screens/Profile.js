@@ -34,11 +34,10 @@ const Profile = () => {
   });
   console.log(dataProfile);
   // let base64Logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAA..';
-  return (
 
+  return (
     <View flex={1}>
       <View flex={0.1}>
-
         <View
           position="absolute"
           top={0}
