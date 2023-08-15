@@ -37,7 +37,7 @@ const Register = ({ navigation }) => {
 
   const {
     data: paciuser,
-    isFetching,
+    isLoading,
     refetch,
   } = useQuery({
     queryKey: ["paciusers"],
@@ -50,7 +50,7 @@ const Register = ({ navigation }) => {
       console.log(error);
     },
   });
-
+  console.log(paciuser);
   const civilIDChangeHandler = (value) => {
     const foundUser = paciuser?.find((user) => user.civilid === value);
 
@@ -102,9 +102,10 @@ const Register = ({ navigation }) => {
   };
 
   console.log(userInfo);
-  if (isFetching) {
+  if (isLoading) {
     return <Text>Loading...</Text>;
   }
+  console.log(passwordError);
   return (
     <View style={styles.container}>
       <View>

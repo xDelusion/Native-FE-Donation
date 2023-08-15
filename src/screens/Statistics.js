@@ -114,7 +114,7 @@ const Statistics = ({ navigation }) => {
                 key={bloodType}
                 bloodType={bloodType}
                 isFocused={
-                  focusedBloodType.toLowerCase() === bloodType.toLowerCase()
+                  focusedBloodType?.toLowerCase() === bloodType?.toLowerCase()
                 }
                 onFocus={(selectedBloodType) =>
                   setFocusedBloodType(selectedBloodType)
