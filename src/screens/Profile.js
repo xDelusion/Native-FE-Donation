@@ -12,6 +12,10 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AntDesign } from "@expo/vector-icons";
 import { removeToken } from "../apis/auth/storage";
+import QRCode from "react-native-qrcode-svg";
+import baselogo from "../../assets/Profile-PNG-File.png";
+import { ScrollView } from "react-native-gesture-handler";
+import moment from "moment";
 const Profile = () => {
   const Stack = createStackNavigator();
   const { user, setUser } = useContext(UserContext);
@@ -29,9 +33,12 @@ const Profile = () => {
     },
   });
   console.log(dataProfile);
+  // let base64Logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAA..';
   return (
+
     <View flex={1}>
       <View flex={0.1}>
+
         <View
           position="absolute"
           top={0}
@@ -61,16 +68,18 @@ const Profile = () => {
                 />
               )}
             </View>
+
             <View>
               {/* <Text style={styles.userName}>Name:</Text> */}
               <Text style={styles.userName}>{`${dataProfile?.name}`}</Text>
-
               <View style={styles.detailsContainer}>
                 <Text style={styles.label}>CivilID:</Text>
                 <Text style={styles.value}>{`${dataProfile?.civilid}`}</Text>
 
                 <Text style={styles.label}>Date of birth:</Text>
-                <Text style={styles.value}>{`${dataProfile?.dob}`}</Text>
+                <Text style={styles.value}>{`${moment(dataProfile?.dob).format(
+                  "L"
+                )}`}</Text>
                 <Text style={styles.label}>Phone:</Text>
                 <Text style={styles.value}>{`${dataProfile?.phone}`}</Text>
                 <Text style={styles.label}>Email:</Text>
@@ -78,9 +87,18 @@ const Profile = () => {
                 <Text style={styles.label}>Blood Group:</Text>
                 <Text style={styles.value}>{`${dataProfile?.bloodType}`}</Text>
                 <Text style={styles.label}>Number of donations:</Text>
+
                 <Text
                   style={styles.value}
                 >{`${dataProfile?.noOfDonations}`}</Text>
+                <View>
+                  <QRCode
+                    value={`${dataProfile?.civilid}  ${dataProfile?.name} ${dataProfile?.dob}  ${dataProfile?.phone} ${dataProfile?.bloodType} `}
+                    logo={{ uri: `${BASE_URL}/${baselogo}` }}
+                    logoSize={30}
+                    logoBackgroundColor="transparent"
+                  />
+                </View>
                 <View
                   style={{ justifyContent: "center", alignItems: "center" }}
                 >
@@ -141,31 +159,6 @@ const Profile = () => {
               </View>
             </View>
           </View>
-
-          {/* <View style={ {justifyContent:"center",
-              alignItems: "center",}}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(ROUTES.APPROUTES.EDITPROFILE, {
-                userInfo: userInfo,
-                setUserInfo: setUserInfo,
-              });
-            }}
-            style={{
-              backgroundColor: colors.red,
-              width: 200,
-              height: 50,
-              justifyContent:"center",
-              alignItems: "center",
-              marginTop:20,
-              borderRadius:8,
-            }}
-          >
-            <Text  style={{ color: colors.white, fontWeight: "bold", fontSize:20 }}>
-              Edit Profile
-            </Text>
-          </TouchableOpacity>
-        </View> */}
         </View>
       </View>
     </View>
